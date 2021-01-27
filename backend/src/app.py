@@ -33,4 +33,6 @@ def create_app(settings_override=None):
     # Register blueprints
     app.register_blueprint(stock)
 
-    return CORS(app)
+    CORS(app)
+
+    return app
