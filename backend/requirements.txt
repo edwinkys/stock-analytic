@@ -13,3 +13,8 @@ Flask-Cors==3.0.10
 # Server
 gunicorn==20.0.4
 Werkzeug==1.0.1
+
+# API
+yfinance==0.1.55
+pandas==1.2.1
+scikit-learn==0.24.1
