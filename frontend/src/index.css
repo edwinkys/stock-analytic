@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    html, body {
+        @apply leading-normal tracking-wider;
+        @apply bg-dark text-light;
+        @apply transition-colors duration-300 ease-in-out;
+    }
+}
