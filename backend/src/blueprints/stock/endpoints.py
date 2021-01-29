@@ -1,24 +1,33 @@
 '''
 
-Endpoints for Individual Stock
+Endpoints for Individual Ticker
 
 '''
 
-from flask import Blueprint
+from flask import Blueprint, request
+from src.blueprints.stock.model import Stock
 
 stock = Blueprint('stock', __name__, url_prefix='/api')
 
 
-@stock.route('/data/<stock>')
-def data(stock):
+@stock.route('/info', methods=['POST'])
+def info():
     '''
 
     Get a specific stock information and price data.
-
-    @param stock: String of symbol or ticker for the stock such as AAPL or MSFT
 
     return: JSON of data and information
 
     '''
 
-    return "Hello World!"
+    data = request.get_json()
+
+    if data:
+        if 'ticker' in data:
+            ticker = data['ticker']
+
+            company_stock = Stock(ticker)
+
+            return company_stock.get_info()
+
+    return None

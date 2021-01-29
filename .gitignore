@@ -1,16 +1,9 @@
 # Flask
-backend/__pycache__
+__pycache__/
 
-# Dependencies
-frontend/node_modules
-frontend/.pnp
-frontend/.pnp.js
-
-# Testing
-frontend/coverage
-
-# Production
-frontend/build
+# React JS
+node_modules/
+build/
 
 # Misc
 .DS_Store

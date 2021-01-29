@@ -25,6 +25,22 @@ npm test
 
 // Build
 npm run build
+
 ```
 
 <br/>
+
+## Docker
+This project is developed using Docker for the DevOps. These are some useful Docker commands to run the entire project:
+
+```
+# Starting the containers
+docker-compose up
+
+# Stopping the containers
+docker-compose stop
+
+# System prune
+docker system prune -a
+
+```
