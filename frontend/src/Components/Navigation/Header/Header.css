@@ -37,7 +37,7 @@ Header Stylesheet
 }
 
 .header-third-section {
-    display: inherit;
+    display: flex;
     flex-direction: inherit;
     visibility: hidden;
     flex: 1 1 0%;
@@ -54,8 +54,4 @@ Header Stylesheet
 
 .header-logo {
     height: 35px;
-}
-
-.header-icon-btn:hover {
-    color: var(--secondary);
 }

@@ -1,8 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
+// Import icons
+import {
+  IoMenuOutline,
+  IoLogoTwitter
+} from 'react-icons/io5';
 
 // Import static
 import './Header.css';
-import logo from '../../Assets/logo.png';
+import logo from '../../../Assets/logo.png';
 
 const Header = props => {
   return (
@@ -10,7 +17,7 @@ const Header = props => {
       <div className="container wrapper header-wrapper">
         <div className="header-first-section">
           <button className="btn header-icon-btn" onClick={props.toggleSidebar}>
-            Menu
+            <IoMenuOutline className="icon" />
           </button>
         </div>
         <div className="header-second-section">
@@ -21,13 +28,19 @@ const Header = props => {
           />
         </div>
         <div className="header-third-section">
-          <button className="btn header-icon-btn" onClick={props.toggleSidebar}>
-            Instagram
-          </button>
+          <a href="https://twitter.com">
+            <button className="btn btn-link">
+              <IoLogoTwitter className="icon" />
+            </button>
+          </a>
         </div>
       </div>
     </header>
   );
+};
+
+Header.propTypes = {
+  toggleSidebar: PropTypes.func
 };
 
 export default Header;

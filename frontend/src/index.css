@@ -13,7 +13,7 @@ Main Stylesheet
   --gray-ligher: #73738c;
 }
 
-button {
+button, a {
   all: unset;
   outline: 2px solid transparent;
   outline-offset: 2px;
@@ -108,4 +108,26 @@ Button
   padding: 15px 50px 15px 50px;
   background-color: var(--primary);
   border-radius: 5px;
+}
+
+.btn-link {
+  color: var(--light);
+}
+
+.btn-link:hover {
+  color: var(--secondary);
+}
+
+
+/*
+========================================
+
+Utilities
+
+========================================
+*/
+
+.icon {
+  width: 25px;
+  height: 25px;
 }

@@ -1,0 +1,35 @@
+/*
+
+Sidebar Stylesheet
+
+*/
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+
+    position: fixed;
+    top: 0;
+    left: -280px;
+
+    width: 280px;
+    min-height: 100vh;
+
+    background-color: var(--gray-darker);
+
+    transition-property: all;
+    transition-timing-function: ease-in-out;
+    transition-duration: 300ms;
+}
+
+.sidebar.active {
+    left: 0px;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding: 25px;
+}
