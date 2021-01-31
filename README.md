@@ -17,13 +17,13 @@ Interial is a web application that is developed using these technologies:
 The front end is developed using React JS and Tailwind CSS. These are some useful command to start development:
 
 ```
-// Starting development
+# Starting development
 npm start
 
-// Run Testing
+# Run Testing
 npm test
 
-// Build
+# Build
 npm run build
 
 ```

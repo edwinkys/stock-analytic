@@ -1,4 +1,4 @@
-FROM node:15.7-buster
+FROM node:15.7-buster-slim
 
 ENV INSTALL_PATH /frontend
 RUN mkdir -p $INSTALL_PATH

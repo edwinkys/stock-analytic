@@ -1,11 +1,34 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/*
 
-@layer base {
-    html, body {
-        @apply leading-normal tracking-wider;
-        @apply bg-dark text-light;
-        @apply transition-colors duration-300 ease-in-out;
-    }
+Main Stylesheet
+
+*/
+
+:root {
+  --primary: #5547eb;
+  --secondary: #8767e4;
+  --dark: #17171c;
+  --light: #e6e6e6;
+  --gray-darker: #22222a;
+  --gray-ligher: #73738c;
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
+  letter-spacing: 0.1em;
+
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in-out;
+
+  background-color: var(--dark);
+  color: var(--light);
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

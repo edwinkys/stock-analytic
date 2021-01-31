@@ -1,10 +1,10 @@
 {
   "short_name": "Interial",
-  "name": "Interial",
+  "name": "Interial: The Smart Stock Analytic Platform",
   "icons": [
     {
       "src": "favicon.png",
-      "sizes": "600x600",
+      "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png",
       "purpose": "maskable"
     }
