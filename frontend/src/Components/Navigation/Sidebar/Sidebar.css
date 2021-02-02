@@ -33,3 +33,29 @@ Sidebar Stylesheet
 
     padding: 25px;
 }
+
+.overlay {
+    min-width: 100%;
+    min-height: 100vh;
+
+    background-color: var(--dark);
+    opacity: 0.75;
+
+    display: none;
+    position: fixed;
+
+    top: 0;
+    left: 0;
+    cursor: pointer;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+
+    padding: 0 25px 25px 25px;
+}

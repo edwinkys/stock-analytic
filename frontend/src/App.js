@@ -1,13 +1,11 @@
 import React from 'react';
 
-import Header from './Components/Navigation/Header/Header';
-import Sidebar from './Components/Navigation/Sidebar/Sidebar';
+import Navigation from './Components/Navigation/Navigation';
 
 const App = () => {
   return (
     <div>
-      <Header />
-      <Sidebar />
+      <Navigation />
     </div>
   );
 };

@@ -16,7 +16,7 @@ const Header = props => {
     <header className="header">
       <div className="container wrapper header-wrapper">
         <div className="header-first-section">
-          <button className="btn header-icon-btn" onClick={props.toggleSidebar}>
+          <button className="btn btn-link" onClick={props.toggleSidebar}>
             <IoMenuOutline className="icon" />
           </button>
         </div>

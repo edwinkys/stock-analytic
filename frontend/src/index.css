@@ -131,3 +131,8 @@ Utilities
   width: 25px;
   height: 25px;
 }
+
+.text-caption {
+  font-size: 0.75rem;
+  color: var(--gray-ligher);
+}
