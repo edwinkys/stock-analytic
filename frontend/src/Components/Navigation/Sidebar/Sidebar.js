@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+import StringField from '../../Form/StringField/StringField';
 
 // Import icon
 import {IoCloseOutline} from 'react-icons/io5';
@@ -19,8 +20,8 @@ const Sidebar = props => {
             <IoCloseOutline className="icon" />
           </button>
         </div>
-        <div className="sidebar-menu">
-          <small className="text-caption"><strong>Menu</strong></small>
+        <div className="sidebar-search">
+          <StringField id="search" type="text" placeholder="Search Ticker" label="Ticker" />
         </div>
       </div>
     </Fragment>

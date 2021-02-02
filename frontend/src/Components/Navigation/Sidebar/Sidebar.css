@@ -53,7 +53,7 @@ Sidebar Stylesheet
     display: flex;
 }
 
-.sidebar-menu {
+.sidebar-search {
     display: flex;
     flex-direction: column;
 

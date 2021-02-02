@@ -5,36 +5,37 @@ Main Stylesheet
 */
 
 :root {
-  --primary: #5547eb;
-  --secondary: #8767e4;
-  --dark: #17171c;
-  --light: #e6e6e6;
-  --gray-darker: #22222a;
-  --gray-ligher: #73738c;
+    --primary: #5547eb;
+    --secondary: #8767e4;
+    --dark: #17171c;
+    --light: #e6e6e6;
+    --gray-darker: #22222a;
+    --gray-ligher: #73738c;
 }
 
-button, a {
-  all: unset;
-  outline: 2px solid transparent;
-  outline-offset: 2px;
-  cursor: pointer;
+button, a, input {
+    all: unset;
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    cursor: pointer;
 }
 
 body {
-  all: unset;
-  font-family: 'Open Sans', sans-serif;
-  line-height: 1.5;
-  letter-spacing: 0.1em;
+    all: unset;
+    font-family: 'Open Sans', sans-serif;
+    line-height: 1.5;
+    letter-spacing: 0.1em;
+    margin: 0;
 
-  background-color: var(--dark);
-  color: var(--light);
+    background-color: var(--dark);
+    color: var(--light);
 
-  -ms-overflow-style: none;
-  scrollbar-width: none;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+    display: none;
 }
 
 
@@ -47,45 +48,45 @@ Container
 */
 
 .container {
-  width: 100%;
+    width: 100%;
 }
 
 @media only screen and (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
+    .container {
+        max-width: 640px;
+    }
 }
 
 @media only screen and (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
+    .container {
+        max-width: 768px;
+    }
 }
 
 @media only screen and (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
+    .container {
+        max-width: 1024px;
+    }
 }
 
 @media only screen and (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
+    .container {
+        max-width: 1280px;
+    }
 }
 
 @media only screen and (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
+    .container {
+        max-width: 1536px;
+    }
 }
 
 .wrapper {
-  margin-left: auto;
-  margin-right: auto;
+    margin-left: auto;
+    margin-right: auto;
 
-  padding-left: 25px;
-  padding-right: 25px;
+    padding-left: 25px;
+    padding-right: 25px;
 }
 
 
@@ -98,24 +99,28 @@ Button
 */
 
 .btn {
-  display: flex;
-  flex-direction: row;
+    display: flex;
+    flex-direction: row;
 
-  padding: 5px;
+    padding: 5px;
 }
 
 .btn-primary {
-  padding: 15px 50px 15px 50px;
-  background-color: var(--primary);
-  border-radius: 5px;
+    padding: 10px 50px 10px 50px;
+    background-color: var(--primary);
+    border-radius: 5px;
+}
+
+.btn-primary:hover {
+    background-color: var(--secondary);
 }
 
 .btn-link {
-  color: var(--light);
+    color: var(--light);
 }
 
 .btn-link:hover {
-  color: var(--secondary);
+    color: var(--secondary);
 }
 
 
@@ -128,11 +133,64 @@ Utilities
 */
 
 .icon {
-  width: 25px;
-  height: 25px;
+    width: 25px;
+    height: 25px;
 }
 
 .text-caption {
-  font-size: 0.75rem;
-  color: var(--gray-ligher);
+    font-size: 0.75rem;
+    color: var(--gray-ligher);
+}
+
+::placeholder {
+    color: var(--gray-ligher);
+}
+
+
+/*
+========================================
+
+Margin
+
+========================================
+*/
+
+.mt-5 {
+    margin-top: 5px;
+}
+
+.mt-10 {
+    margin-top: 10px;
+}
+
+.mt-25 {
+    margin-top: 25px;
+}
+
+.mt-35 {
+    margin-top: 35px;
+}
+
+.mt-50 {
+    margin-top: 50px;
+}
+
+.mb-5 {
+    margin-bottom: 5px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.mb-25 {
+    margin-bottom: 25px;
+}
+
+.mb-35 {
+    margin-bottom: 35px;
+}
+
+.mb-50 {
+    margin-bottom: 50px;
 }

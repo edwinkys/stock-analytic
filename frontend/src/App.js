@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 
 import Navigation from './Components/Navigation/Navigation';
+import StringField from './Components/Form/StringField/StringField';
 
 const App = () => {
   return (
-    <div>
+    <Fragment>
       <Navigation />
-    </div>
+    </Fragment>
   );
 };
 
