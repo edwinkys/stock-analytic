@@ -1,13 +1,14 @@
-import React, {Fragment} from 'react';
+import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 
-import Navigation from './Components/Navigation/Navigation';
-import StringField from './Components/Form/StringField/StringField';
+// Import router
+import Router from './Router';
 
 const App = () => {
   return (
-    <Fragment>
-      <Navigation />
-    </Fragment>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
   );
 };
 

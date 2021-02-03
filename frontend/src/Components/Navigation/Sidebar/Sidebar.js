@@ -1,5 +1,7 @@
 import React, {Fragment} from 'react';
 import PropTypes from 'prop-types';
+
+// Import forms
 import StringField from '../../Form/StringField/StringField';
 
 // Import icon

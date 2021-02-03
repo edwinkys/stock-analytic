@@ -1,5 +1,6 @@
 import React, {Fragment, useState} from 'react';
 
+// Import components
 import Header from './Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 
