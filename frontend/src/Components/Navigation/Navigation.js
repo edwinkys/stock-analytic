@@ -1,18 +1,18 @@
 import React, {Fragment, useState} from 'react';
 
 // Import components
-import Header from './Header/Header';
-import Sidebar from './Sidebar/Sidebar';
+import Header from './Header';
+import Sidebar from './Sidebar';
 
-const Navigation = props => {
+const Navigation = () => {
   const [isSidebarActive, setSidebarActive] = useState(false);
 
-  const toggleSidebar = () => setSidebarActive(!isSidebarActive);
+  const sidebarToggler = () => (setSidebarActive(!isSidebarActive));
 
   return (
     <Fragment>
-      <Header toggleSidebar={toggleSidebar} />
-      <Sidebar isActive={isSidebarActive} toggleSidebar={toggleSidebar} />
+      <Header sidebarToggler={sidebarToggler} />
+      <Sidebar sidebarToggler={sidebarToggler} isActive={isSidebarActive} />
     </Fragment>
   );
 };

@@ -1,0 +1,14 @@
+/*
+
+Stylesheet for <noscript>
+
+*/
+
+noscript {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    color: #17171c;
+}
