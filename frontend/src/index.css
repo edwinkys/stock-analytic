@@ -17,6 +17,9 @@ button, a, input {
     all: unset;
     outline: 2px solid transparent;
     outline-offset: 2px;
+}
+
+button, a {
     cursor: pointer;
 }
 
