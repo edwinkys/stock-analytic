@@ -4,8 +4,17 @@ import PropTypes from 'prop-types';
 // Import icons
 import {IoCloseOutline} from 'react-icons/io5';
 
+// Import components
+import StringField from '../Form/StringField';
+
 const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";
+
+  // Input Uppercase
+  const inputUpperCaseHandler = e => {
+    e.target.value = ("" + e.target.value).toUpperCase();
+  };
+
   return (
     <Fragment>
       <div className={"overlay" + activeStyle} onClick={props.sidebarToggler}></div>
@@ -14,6 +23,15 @@ const Sidebar = props => {
           <button className="btn btn-link" onClick={props.sidebarToggler}>
             <IoCloseOutline className="icon" />
           </button>
+        </div>
+        <div className="flex p-6">
+          <StringField
+            id="ticker"
+            label="Ticker"
+            type="text"
+            placeholder="TSLA"
+            onKeyUp={inputUpperCaseHandler}
+          />
         </div>
       </nav>
     </Fragment>

@@ -3,7 +3,7 @@ import React from 'react';
 // Import components
 import Navigation from './Components/Navigation/Navigation';
 
-function App() {
+const App = () => {
   return (
     <div>
       <Navigation />

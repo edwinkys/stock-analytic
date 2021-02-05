@@ -8,17 +8,46 @@ Main Stylesheet
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --error: #ff5757;
+}
+
 @layer base {
     html, body {
         @apply bg-dark text-light;
-        @apply leading-normal tracking-wider;
+        @apply leading-normal tracking-widest;
 
-        font-family: "Open Sans", sans-serif;
+        font-family: "Open Sans", sans-serif !important;
     }
 
-    button {
-        @apply outline-none !important;
+    label {
         @apply transition-colors duration-300 ease-in-out;
+    }
+
+    button, input, textarea {
+        @apply outline-none tracking-widest !important;
+        @apply transition-colors duration-300 ease-in-out;
+    }
+
+
+    /*
+    ########################################
+
+    Placeholder
+
+    ########################################
+    */
+
+    ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+        @apply text-gray-lighter !important;
+    }
+
+    :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        @apply text-gray-lighter !important;
+    }
+
+    ::-ms-input-placeholder { /* Microsoft Edge */
+        @apply text-gray-lighter !important;
     }
 }
 
@@ -84,5 +113,26 @@ Main Stylesheet
     .icon {
         width: 25px;
         height: 25px;
+    }
+
+
+    /*
+    ########################################
+
+    Error Color
+
+    ########################################
+    */
+
+    .text-error {
+        color: var(--error) !important;
+    }
+
+    .border-error {
+        border-color: var(--error) !important;
+    }
+
+    .bg-error {
+        background-color: var(--error) !important;
     }
 }
