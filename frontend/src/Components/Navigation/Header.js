@@ -9,7 +9,7 @@ import {IoLogoTwitter, IoMenuOutline} from 'react-icons/io5';
 
 const Header = props => {
   return (
-    <header className="bg-gray-darker sticky top-0">
+    <header className="header bg-gray-darker sticky top-0">
       <div className="flex container wrapper py-6">
         <div className="flex flex-row flex-1 justify-start items-center">
           <button className="btn btn-link" onClick={props.sidebarToggler}>
