@@ -5,7 +5,7 @@ import DefaultLayout from '../Layouts/DefaultLayout';
 
 // Import components
 import StockChart from '../Components/Chart/StockChart';
-import Chip from '../Components/Buttons/Chip';
+import ChoiceChips from '../Components/Chips/ChoiceChips';
 
 const data = [
   {
@@ -144,14 +144,7 @@ const StockPage = props => {
             <span className="text-5xl font-bold mb-6">AAPL</span>
             <span className="text-3xl text-gray-lighter mb-6">$140.00</span>
             <StockChart data={data} label="label" value="val" />
-            <div className="flex flex-row mt-6">
-              <Chip>
-                1d
-              </Chip>
-              <Chip>
-                1w
-              </Chip>
-            </div>
+            <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" />
           </div>
         </div>
       </div>
