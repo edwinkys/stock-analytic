@@ -57,6 +57,21 @@ Main Stylesheet
         @apply px-6;
     }
 
+    .section {
+        @apply flex;
+        @apply py-12 my-12;
+    }
+
+    .section-sm {
+        @apply flex;
+        @apply py-6 my-12;
+    }
+
+    .section-lg {
+        @apply flex;
+        @apply py-24 my-12;
+    }
+
 
     /*
     ########################################
@@ -122,6 +137,31 @@ Main Stylesheet
 
     .btn-link:hover {
         @apply text-secondary;
+    }
+
+
+    /*
+    ########################################
+
+    Chips
+
+    ########################################
+    */
+
+    .chip {
+        @apply border border-gray-lighter px-3 text-gray-lighter mr-3;
+    }
+
+    .chip:hover {
+        @apply border-secondary text-secondary;
+    }
+
+    .chip.active {
+        @apply bg-secondary border-secondary text-light;
+    }
+
+    .chip:last-child {
+        @apply mr-0;
     }
 }
 
