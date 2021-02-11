@@ -18,6 +18,12 @@ Main Stylesheet
         @apply leading-normal tracking-widest;
 
         font-family: "Open Sans", sans-serif !important;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+
+    ::-webkit-scrollbar {
+        display: none;
     }
 
     label {
@@ -169,6 +175,33 @@ Main Stylesheet
     .icon {
         width: 25px;
         height: 25px;
+    }
+
+
+    /*
+    ########################################
+
+    Tooltip
+
+    ########################################
+    */
+
+    .tooltip {
+        @apply flex flex-col p-6 bg-gray-darker text-light rounded;
+    }
+
+    .info-tooltip {
+        @apply text-xs pointer-events-auto p-6 text-light bg-secondary !important;
+
+        max-width: 12rem;
+    }
+
+    .info-tooltip:after {
+        @apply border-transparent !important;
+    }
+
+    .info-tooltip:hover {
+        @apply visible;
     }
 
 

@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 
 // Import components
 import Chip from './Chip';
@@ -44,13 +43,10 @@ const ChoiceChips = props => {
   return (
     <div {...props}>
       {
-        periods.map((val, index) => <Chip id={val.id} label={val.id} onClick={chipActiveHandler} isActive={isChipActiveHandler(val.id)} />)
+        periods.map((val, index) => <Chip key={val.id} id={val.id} label={val.id} onClick={chipActiveHandler} isActive={isChipActiveHandler(val.id)} />)
       }
     </div>
   );
-};
-
-ChoiceChips.propTypes = {
 };
 
 export default ChoiceChips;

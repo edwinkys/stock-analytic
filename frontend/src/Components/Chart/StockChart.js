@@ -28,7 +28,7 @@ const StockChart = props => {
       <ComposedChart data={props.data}>
         <defs>
           <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={color.purple} stopOpacity={0.25}/>
+            <stop offset="0%" stopColor={color.purple} stopOpacity={0.5}/>
             <stop offset="100%" stopColor={color.purple} stopOpacity={0}/>
           </linearGradient>
           <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
