@@ -7,6 +7,8 @@ import DefaultLayout from '../Layouts/DefaultLayout';
 import StockChart from '../Components/Chart/StockChart';
 import ChoiceChips from '../Components/Chips/ChoiceChips';
 import Card from '../Components/Card/Card';
+import CardGrid from '../Components/Card/CardGrid';
+import CardGridData from '../Components/Card/CardGridData';
 import Tooltip from '../Components/Tooltip/Tooltip';
 
 const data = [
@@ -151,47 +153,20 @@ const StockPage = props => {
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Card>
-              <span className="font-bold mb-6">Market Summary</span>
-              <hr className="border-gray-lighter mb-6 w-1/2" />
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">Open</span>
-                  <span>148.8</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">Prev Close</span>
-                  <span>136.8</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">Today High</span>
-                  <span>136.99</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">Today Low</span>
-                  <span>134.4</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">52w High</span>
-                  <span>53.15</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">52w Low</span>
-                  <span>145.09</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span className="text-gray-lighter">Vol</span>
-                  <span>70,527,203</span>
-                </div>
-                <div className="flex flex-row justify-between">
-                  <span data-tip data-for="avgVolInfo" className="text-gray-lighter">Avg Vol</span>
-                  <span>83,910,628</span>
-                  <Tooltip id="avgVolInfo" message="The average traded volume in the last 10 days." />
-                </div>
-              </div>
+            <Card title="Market Summary">
+              <CardGrid>
+                <CardGridData label="Open" data="148.8" />
+                <CardGridData label="Prev Close" data="136.8" />
+                <CardGridData label="Today High" data="136.99" />
+                <CardGridData label="Today Low" data="134.4" />
+                <CardGridData label="52w High" data="145.09" />
+                <CardGridData label="52w Low" data="53.15" />
+                <CardGridData label="Vol" data="70,527,203" />
+                <CardGridData label="Avg Vol" data="83,910,628" tooltipId="avgVolInfo" tooltipMessage="The average traded volume in the last 10 days." />
+              </CardGrid>
             </Card>
-            <Card>
-              <span className="font-bold">Hello</span>
+            <Card title="Stock Summary">
+
             </Card>
           </div>
         </div>
