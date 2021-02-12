@@ -9,7 +9,6 @@ import ChoiceChips from '../Components/Chips/ChoiceChips';
 import Card from '../Components/Card/Card';
 import CardGrid from '../Components/Card/CardGrid';
 import CardGridData from '../Components/Card/CardGridData';
-import Tooltip from '../Components/Tooltip/Tooltip';
 
 const data = [
   {
@@ -138,6 +137,90 @@ const data = [
   }
 ];
 
+// Market Summary Data
+const marketSummaryData = [
+  {
+    label: "Open",
+    data: "148.8"
+  },
+  {
+    label: "Prev Close",
+    data: "136.8"
+  },
+  {
+    label: "Today High",
+    data: "136.99"
+  },
+  {
+    label: "Today Low",
+    data: "134.4"
+  },
+  {
+    label: "52w High",
+    data: "145.09"
+  },
+  {
+    label: "52w Low",
+    data: "53.15"
+  },
+  {
+    label: "Vol",
+    data: "70,527,203"
+  },
+  {
+    label: "Avg Vol",
+    data: "83,910,628",
+    tooltipId: "avgVolInfo",
+    tooltipMessage: "The average traded volume in the last 10 days."
+  },
+];
+
+// Stock Summary Data
+const stockSummaryData = [
+  {
+    label: "Market Cap",
+    data: "2.27T"
+  },
+  {
+    label: "Beta",
+    data: "1.27",
+    tooltipId: "betaInfo",
+    tooltipMessage: "Beta is a measure of a stock's volatility in relation to the overall market. The higher the beta the more volatile."
+  },
+  {
+    label: "P/E Ratio",
+    data: "36.72",
+    tooltipId: "peRatioInfo",
+    tooltipMessage: "The P/E Ratio tells you how expensive a stock is compared to its earnings."
+  },
+  {
+    label: "EPS",
+    data: "3.69",
+    tooltipId: "epsInfo",
+    tooltipMessage: "EPS is calculated as a company's profit divided by the outstanding shares of its common stock."
+  },
+  {
+    label: "Dividend",
+    data: "0.6%"
+  },
+  {
+    label: "Profit Margin",
+    data: "21.7%"
+  },
+  {
+    label: "PEG Ratio",
+    data: "2.02",
+    tooltipId: "pegRatioInfo",
+    tooltipMessage: "The PEG ratio compares a company’s P/E ratio to its expected rate of growth, a key factor for assessing its value."
+  },
+  {
+    label: "EV/R",
+    data: "7.9",
+    tooltipId: "evrInfo",
+    tooltipMessage: "EV/R is a measure of the value of a stock that compares a company's enterprise value to its revenue"
+  }
+];
+
 const StockPage = props => {
   return (
     <DefaultLayout>
@@ -155,18 +238,17 @@ const StockPage = props => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <Card title="Market Summary">
               <CardGrid>
-                <CardGridData label="Open" data="148.8" />
-                <CardGridData label="Prev Close" data="136.8" />
-                <CardGridData label="Today High" data="136.99" />
-                <CardGridData label="Today Low" data="134.4" />
-                <CardGridData label="52w High" data="145.09" />
-                <CardGridData label="52w Low" data="53.15" />
-                <CardGridData label="Vol" data="70,527,203" />
-                <CardGridData label="Avg Vol" data="83,910,628" tooltipId="avgVolInfo" tooltipMessage="The average traded volume in the last 10 days." />
+                {
+                  marketSummaryData.map((item, index) => <CardGridData key={index} label={item.label} data={item.data} tooltipId={item.tooltipId} tooltipMessage={item.tooltipMessage} />)
+                }
               </CardGrid>
             </Card>
             <Card title="Stock Summary">
-
+              <CardGrid>
+                {
+                  stockSummaryData.map((item, index) => <CardGridData key={index} label={item.label} data={item.data} tooltipId={item.tooltipId} tooltipMessage={item.tooltipMessage} />)
+                }
+              </CardGrid>
             </Card>
           </div>
         </div>

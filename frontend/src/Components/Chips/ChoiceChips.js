@@ -38,8 +38,6 @@ const ChoiceChips = props => {
   // Is chip active handler
   const isChipActiveHandler = id => (chipActiveId === id);
 
-  console.log(chipActiveId);
-
   return (
     <div {...props}>
       {
