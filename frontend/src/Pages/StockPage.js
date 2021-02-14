@@ -235,7 +235,7 @@ const StockPage = props => {
             <StockChart data={data} label="label" value="val" />
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <Card title="Market Summary">
               <CardGrid>
                 {
@@ -249,6 +249,14 @@ const StockPage = props => {
                   stockSummaryData.map((item, index) => <CardGridData key={index} label={item.label} data={item.data} tooltipId={item.tooltipId} tooltipMessage={item.tooltipMessage} />)
                 }
               </CardGrid>
+            </Card>
+          </div>
+          <div className="flex flex-col">
+            <Card title="Company Profile">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <span>Hello</span>
+                <span>Hello</span>
+              </div>
             </Card>
           </div>
         </div>
