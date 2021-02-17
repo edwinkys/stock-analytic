@@ -30,7 +30,7 @@ const CardGridData = props => {
 
 CardGridData.propTypes = {
   label: PropTypes.string,
-  data: PropTypes.string,
+  data: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
   tooltipId: PropTypes.string,
   tooltipMessage: PropTypes.string
 }

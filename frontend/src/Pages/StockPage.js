@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useState} from 'react';
+import {useParams} from 'react-router-dom';
 
 // Import layout
 import DefaultLayout from '../Layouts/DefaultLayout';
@@ -235,8 +236,8 @@ const companyProfileData = [
     data: "147000"
   },
   {
-    label: "Location",
-    data: "95014"
+    label: "Website",
+    data: <a href="https://apple.com" target="_blank" rel="noreferrer">apple.com</a>
   },
   {
     label: "Country",
@@ -245,6 +246,15 @@ const companyProfileData = [
 ];
 
 const StockPage = props => {
+  const {ticker} = useParams();
+
+  // Callback Function
+  const [activePeriod, setActivePeriod] = useState("3m");
+  const callbackActivePeriod = period => {
+    setActivePeriod(period);
+  };
+
+  console.log(ticker, activePeriod);
   return (
     <DefaultLayout>
       <div className="flex flex-col container wrapper">
@@ -256,7 +266,7 @@ const StockPage = props => {
           </div>
           <div className="flex flex-col mb-6">
             <StockChart data={data} label="label" value="val" />
-            <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" />
+            <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" callback={callbackActivePeriod} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <Card title="Market Summary">
@@ -276,12 +286,12 @@ const StockPage = props => {
           </div>
           <div className="flex flex-col">
             <Card title="Company Profile">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <span className="text-gray-lighter">
+              <div className="flex flex-col">
+                <div className="text-gray-lighter mb-6">
                   {
                     ShortenParagraph('Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.')
                   }
-                </span>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {
                     companyProfileData.map((item, index) => <CardGridData key={index} label={item.label} data={item.data} tooltipId={item.tooltipId} tooltipMessage={item.tooltipMessage} />)

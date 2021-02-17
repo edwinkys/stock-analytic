@@ -1,13 +1,14 @@
 import React from 'react';
+import {BrowserRouter} from 'react-router-dom';
 
-// Import components
-import StockPage from './Pages/StockPage';
+// Import router
+import RouteConfig from './RouteConfig';
 
 const App = () => {
   return (
-    <div>
-      <StockPage />
-    </div>
+    <BrowserRouter>
+      <RouteConfig />
+    </BrowserRouter>
   );
 };
 

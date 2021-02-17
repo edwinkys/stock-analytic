@@ -30,9 +30,17 @@ Main Stylesheet
         @apply transition-colors duration-300 ease-in-out;
     }
 
-    button, input, textarea {
+    a, button, input, textarea {
         @apply outline-none tracking-widest !important;
         @apply transition-colors duration-300 ease-in-out;
+    }
+
+    a {
+        @apply text-primary;
+    }
+
+    a:hover {
+        @apply text-secondary;
     }
 
 

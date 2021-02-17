@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
 
 // Import assets
 import logo from '../../Assets/logo.png';
@@ -17,11 +18,13 @@ const Header = props => {
           </button>
         </div>
         <div className="flex flex-row flex-1 justify-center items-center">
-          <img
-            src={logo}
-            className="h-8"
-            alt="Interial Logo"
-          />
+          <Link to="/">
+            <img
+              src={logo}
+              className="h-8"
+              alt="Interial Logo"
+            />
+          </Link>
         </div>
         <div className="flex flex-row flex-1 justify-end items-center">
           <a href="https://twitter.com">

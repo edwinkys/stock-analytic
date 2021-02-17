@@ -1,5 +1,6 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import PropTypes from 'prop-types';
+import {useHistory} from 'react-router-dom';
 
 // Import icons
 import {IoCloseOutline} from 'react-icons/io5';
@@ -9,10 +10,25 @@ import StringField from '../Form/StringField';
 
 const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";
+  let path = "";
+
+  const [ticker, setTicker] = useState("");
+  const history = useHistory();
 
   // Input Uppercase
   const inputUpperCaseHandler = e => {
     e.target.value = ("" + e.target.value).toUpperCase();
+  };
+
+  // Redirect to Ticker
+  const changeHandler = e => {
+    setTicker(e.target.value.toLowerCase());
+  };
+
+  const submitHandler = e => {
+    e.preventDefault();
+    path = "/stock/" + ticker + "/";
+    history.push(path);
   };
 
   return (
@@ -24,15 +40,18 @@ const Sidebar = props => {
             <IoCloseOutline className="icon" />
           </button>
         </div>
-        <div className="flex p-6">
+        <form onSubmit={submitHandler} className="flex p-6">
           <StringField
             id="ticker"
             label="Ticker"
             type="text"
             placeholder="TSLA"
+            value={ticker.toUpperCase()}
             onKeyUp={inputUpperCaseHandler}
+            onChange={changeHandler}
+            autoFocus={props.isActive}
           />
-        </div>
+        </form>
       </nav>
     </Fragment>
   );

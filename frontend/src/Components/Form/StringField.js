@@ -20,7 +20,7 @@ const StringField = props => {
         id={props.id}
         type={props.type}
         placeholder={props.placeholder}
-        className={"bg-transparent border-b border-gray-lighter hover:border-secondary focus:border-secondary py-3" + borderError}
+        className={"bg-transparent border-b border-gray-lighter hover:border-secondary focus:border-secondary py-3 w-full" + borderError}
         spellCheck={false}
         {...props}
       />

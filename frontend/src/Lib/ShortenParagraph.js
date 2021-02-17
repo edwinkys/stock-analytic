@@ -12,7 +12,7 @@ const ShortenParagraph = paragraph => {
     parArray[i].replace(/\s+/g, ' ').trim();
   }
 
-  result = parArray[0] + '. ' + parArray[1] + '. ' + parArray[2] + '.';
+  result = parArray[0] + '. ' + parArray[1] + '. ' + parArray[2] + '. ' + parArray[3] + '.';
 
   return result;
 };
