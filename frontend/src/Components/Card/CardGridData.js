@@ -16,7 +16,7 @@ const CardGridData = props => {
           {props.label}
         </span>
       }
-      <span>
+      <span className="flex flex-end text-right">
         {props.data}
       </span>
       {

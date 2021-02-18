@@ -11,6 +11,7 @@ import StringField from '../Form/StringField';
 const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";
   let path = "";
+  let toggler = props.sidebarToggler;
 
   const [ticker, setTicker] = useState("");
   const history = useHistory();
@@ -29,14 +30,15 @@ const Sidebar = props => {
     e.preventDefault();
     path = "/stock/" + ticker + "/";
     history.push(path);
+    toggler();
   };
 
   return (
     <Fragment>
-      <div className={"overlay" + activeStyle} onClick={props.sidebarToggler}></div>
+      <div className={"overlay" + activeStyle} onClick={toggler}></div>
       <nav className={"sidebar" + activeStyle}>
         <div className="flex flex-row items-center justify-end p-6">
-          <button className="btn btn-link" onClick={props.sidebarToggler}>
+          <button className="btn btn-link" onClick={toggler}>
             <IoCloseOutline className="icon" />
           </button>
         </div>

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import Axios from '../Lib/Axios';
 
 // Import layout
 import DefaultLayout from '../Layouts/DefaultLayout';
@@ -13,6 +14,10 @@ import CardGridData from '../Components/Card/CardGridData';
 
 // Import util function
 import ShortenParagraph from '../Lib/ShortenParagraph';
+import BigDecimal from '../Lib/BigDecimal';
+import FixedDecimal from '../Lib/FixedDecimal';
+import ToPercentage from '../Lib/ToPercentage';
+import ShortenLink from '../Lib/ShortenLink';
 
 const data = [
   {
@@ -141,127 +146,146 @@ const data = [
   }
 ];
 
-// Market Summary Data
-const marketSummaryData = [
-  {
-    label: "Open",
-    data: "148.8"
-  },
-  {
-    label: "Prev Close",
-    data: "136.8"
-  },
-  {
-    label: "Today High",
-    data: "136.99"
-  },
-  {
-    label: "Today Low",
-    data: "134.4"
-  },
-  {
-    label: "52w High",
-    data: "145.09"
-  },
-  {
-    label: "52w Low",
-    data: "53.15"
-  },
-  {
-    label: "Vol",
-    data: "70,527,203"
-  },
-  {
-    label: "Avg Vol",
-    data: "83,910,628",
-    tooltipId: "avgVolInfo",
-    tooltipMessage: "The average traded volume in the last 10 days."
-  },
-];
-
-// Stock Summary Data
-const stockSummaryData = [
-  {
-    label: "Market Cap",
-    data: "2.27T"
-  },
-  {
-    label: "Beta",
-    data: "1.27",
-    tooltipId: "betaInfo",
-    tooltipMessage: "Beta is a measure of a stock's volatility in relation to the overall market. The higher the beta the more volatile."
-  },
-  {
-    label: "P/E Ratio",
-    data: "36.72",
-    tooltipId: "peRatioInfo",
-    tooltipMessage: "The P/E Ratio tells you how expensive a stock is compared to its earnings."
-  },
-  {
-    label: "EPS",
-    data: "3.69",
-    tooltipId: "epsInfo",
-    tooltipMessage: "EPS is calculated as a company's profit divided by the outstanding shares of its common stock."
-  },
-  {
-    label: "Dividend",
-    data: "0.6%"
-  },
-  {
-    label: "Profit Margin",
-    data: "21.7%"
-  },
-  {
-    label: "PEG Ratio",
-    data: "2.02",
-    tooltipId: "pegRatioInfo",
-    tooltipMessage: "The PEG ratio compares a company’s P/E ratio to its expected rate of growth, a key factor for assessing its value."
-  },
-  {
-    label: "EV/R",
-    data: "7.9",
-    tooltipId: "evrInfo",
-    tooltipMessage: "EV/R is a measure of the value of a stock that compares a company's enterprise value to its revenue"
-  }
-];
-
-// Company Profile
-const companyProfileData = [
-  {
-    label: "Sector",
-    data: "Technology"
-  },
-  {
-    label: "Employees",
-    data: "147000"
-  },
-  {
-    label: "Website",
-    data: <a href="https://apple.com" target="_blank" rel="noreferrer">apple.com</a>
-  },
-  {
-    label: "Country",
-    data: "United States"
-  }
-];
-
 const StockPage = props => {
   const {ticker} = useParams();
+  const [activePeriod, setActivePeriod] = useState("3m");
+  const [stockInfo, setStockInfo] = useState({});
+  const [isDataLoaded, setDataLoaded] = useState(false);
 
   // Callback Function
-  const [activePeriod, setActivePeriod] = useState("3m");
   const callbackActivePeriod = period => {
     setActivePeriod(period);
   };
 
-  console.log(ticker, activePeriod);
+  // Get stock info
+  useEffect(() => {
+    setDataLoaded(false);
+
+    Axios.get('/info', {
+      params: {
+        ticker: ticker
+      }
+    })
+      .then((response) => {
+        setStockInfo(response.data);
+        setDataLoaded(true);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [ticker]);
+
+  // Market Summary Data
+  const marketSummaryData = [
+    {
+      label: "Open",
+      data: FixedDecimal(stockInfo.open)
+    },
+    {
+      label: "Prev Close",
+      data: FixedDecimal(stockInfo.previousClose)
+    },
+    {
+      label: "Today High",
+      data: FixedDecimal(stockInfo.dayHigh)
+    },
+    {
+      label: "Today Low",
+      data: FixedDecimal(stockInfo.dayLow)
+    },
+    {
+      label: "52w High",
+      data: FixedDecimal(stockInfo.fiftyTwoWeekHigh)
+    },
+    {
+      label: "52w Low",
+      data: FixedDecimal(stockInfo.fiftyTwoWeekLow)
+    },
+    {
+      label: "Vol",
+      data: BigDecimal(stockInfo.volume)
+    },
+    {
+      label: "Avg Vol",
+      data: BigDecimal(stockInfo.averageDailyVolume10Day),
+      tooltipId: "avgVolInfo",
+      tooltipMessage: "The average traded volume in the last 10 days."
+    },
+  ];
+
+  // Stock Summary Data
+  const stockSummaryData = [
+    {
+      label: "Market Cap",
+      data: BigDecimal(stockInfo.marketCap)
+    },
+    {
+      label: "Beta",
+      data: FixedDecimal(stockInfo.beta),
+      tooltipId: "betaInfo",
+      tooltipMessage: "Beta is a measure of a stock's volatility in relation to the overall market. The higher the beta the more volatile."
+    },
+    {
+      label: "P/E Ratio",
+      data: FixedDecimal(stockInfo.trailingPE),
+      tooltipId: "peRatioInfo",
+      tooltipMessage: "The P/E Ratio tells you how expensive a stock is compared to its earnings."
+    },
+    {
+      label: "EPS",
+      data: FixedDecimal(stockInfo.trailingEps),
+      tooltipId: "epsInfo",
+      tooltipMessage: "EPS is calculated as a company's profit divided by the outstanding shares of its common stock."
+    },
+    {
+      label: "Dividend",
+      data: ToPercentage(stockInfo.dividendYield)
+    },
+    {
+      label: "Profit Margin",
+      data: ToPercentage(stockInfo.profitMargins)
+    },
+    {
+      label: "PEG Ratio",
+      data: FixedDecimal(stockInfo.pegRatio),
+      tooltipId: "pegRatioInfo",
+      tooltipMessage: "The PEG ratio compares a company’s P/E ratio to its expected rate of growth, a key factor for assessing its value."
+    },
+    {
+      label: "EV/R",
+      data: FixedDecimal(stockInfo.enterpriseToRevenue),
+      tooltipId: "evrInfo",
+      tooltipMessage: "EV/R is a measure of the value of a stock that compares a company's enterprise value to its revenue"
+    }
+  ];
+
+  // Company Profile
+  const companyProfileData = [
+    {
+      label: "Sector",
+      data: stockInfo.sector
+    },
+    {
+      label: "Employees",
+      data: BigDecimal(stockInfo.fullTimeEmployees)
+    },
+    {
+      label: "Website",
+      data: <a href={stockInfo.website} target="_blank" rel="noreferrer">{ShortenLink(stockInfo.website)}</a>
+    },
+    {
+      label: "Country",
+      data: stockInfo.country
+    }
+  ];
+
   return (
-    <DefaultLayout>
+    <DefaultLayout isLoaded={isDataLoaded}>
       <div className="flex flex-col container wrapper">
         <div className="section-sm flex-col">
           <div className="flex flex-col mb-6">
-            <span className="text-xs text-gray-lighter mb-3">Apple, Inc.</span>
-            <span className="text-5xl font-bold mb-6">AAPL</span>
+            <span className="text-xs text-gray-lighter mb-3">{stockInfo.shortName}</span>
+            <span className="text-5xl font-bold mb-6">{stockInfo.symbol}</span>
             <span className="text-3xl text-secondary">$140.00</span>
           </div>
           <div className="flex flex-col mb-6">
@@ -289,7 +313,7 @@ const StockPage = props => {
               <div className="flex flex-col">
                 <div className="text-gray-lighter mb-6">
                   {
-                    ShortenParagraph('Apple Inc. designs, manufactures, and markets smartphones, personal computers, tablets, wearables, and accessories worldwide. It also sells various related services. The company offers iPhone, a line of smartphones; Mac, a line of personal computers; iPad, a line of multi-purpose tablets; and wearables, home, and accessories comprising AirPods, Apple TV, Apple Watch, Beats products, HomePod, iPod touch, and other Apple-branded and third-party accessories. It also provides AppleCare support services; cloud services store services; and operates various platforms, including the App Store, that allow customers to discover and download applications and digital content, such as books, music, video, games, and podcasts. In addition, the company offers various services, such as Apple Arcade, a game subscription service; Apple Music, which offers users a curated listening experience with on-demand radio stations; Apple News+, a subscription news and magazine service; Apple TV+, which offers exclusive original content; Apple Card, a co-branded credit card; and Apple Pay, a cashless payment service, as well as licenses its intellectual property. The company serves consumers, and small and mid-sized businesses; and the education, enterprise, and government markets. It sells and delivers third-party applications for its products through the App Store. The company also sells its products through its retail and online stores, and direct sales force; and third-party cellular network carriers, wholesalers, retailers, and resellers. Apple Inc. was founded in 1977 and is headquartered in Cupertino, California.')
+                    ShortenParagraph(stockInfo.longBusinessSummary)
                   }
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

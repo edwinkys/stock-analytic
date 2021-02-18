@@ -4,13 +4,13 @@ Endpoints for Individual Ticker
 
 '''
 
-from flask import Blueprint, request
+from flask import Blueprint, request, make_response, jsonify
 from src.blueprints.stock.model import Stock
 
 stock = Blueprint('stock', __name__, url_prefix='/api')
 
 
-@stock.route('/info', methods=['POST'])
+@stock.route('/info/', methods=['GET'])
 def info():
     '''
 
@@ -20,14 +20,11 @@ def info():
 
     '''
 
-    data = request.get_json()
+    ticker = request.args.get('ticker')
 
-    if data:
-        if 'ticker' in data:
-            ticker = data['ticker']
+    if ticker:
+        company_stock = Stock(ticker)
 
-            company_stock = Stock(ticker)
-
-            return company_stock.get_info()
+        return company_stock.get_info()
 
     return None

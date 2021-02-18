@@ -33,6 +33,27 @@ def create_app(settings_override=None):
     # Register blueprints
     app.register_blueprint(stock)
 
-    CORS(app)
+    # Register extension
+    extensions(app)
 
     return app
+
+
+def extensions(app):
+    '''
+
+    Add extensions to the app.
+
+    @app: Flask app
+
+    return: None
+
+    '''
+
+    # Initialize extensions
+    cors = CORS()
+
+    # Add extensions
+    cors.init_app(app)
+
+    return None

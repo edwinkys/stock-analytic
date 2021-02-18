@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 import {Helmet} from "react-helmet";
 import PropTypes from 'prop-types';
 
@@ -8,7 +8,7 @@ import Loading from '../Components/Loading/Loading';
 
 const DefaultLayout = props => {
   return (
-    <Fragment>
+    <div className={props.isLoaded ? "loaded" : ""}>
       <Helmet
         defaultTitle="Interial &ndash; Smart Stock Analytic Platform"
         titleTemplate="%s &ndash; Interial"
@@ -18,18 +18,17 @@ const DefaultLayout = props => {
         </title>
         <meta name="description" content={props.description} />
       </Helmet>
-      {
-        props.isLoading ? <Loading /> : null
-      }
+      <Loading />
       <Navigation />
       {props.children}
-    </Fragment>
+    </div>
   );
 };
 
 DefaultLayout.propTypes = {
   title: PropTypes.string,
   description: PropTypes.string,
+  isLoaded: PropTypes.bool,
   children: PropTypes.node
 };
 

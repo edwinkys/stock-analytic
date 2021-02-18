@@ -89,7 +89,7 @@ class Stock():
 
         return stock_data
 
-    def get_info(self, datapoints=None):
+    def get_info(self):
         '''
 
         Get summary of the stock.
@@ -100,10 +100,17 @@ class Stock():
 
         '''
 
-        if datapoints:
-            return {key: value for key, value in self.stock.info.items() if key in datapoints}
-        else:
-            return self.stock.info
+        datapoints = [
+            'shortName', 'symbol', 'open', 'previousClose',
+            'dayHigh', 'dayLow', 'fiftyTwoWeekHigh', 'fiftyTwoWeekLow',
+            'volume', 'averageDailyVolume10Day', 'marketCap', 'beta',
+            'trailingPE', 'trailingEps', 'dividendYield', 'profitMargins',
+            'pegRatio', 'enterpriseToRevenue', 'longBusinessSummary', 'sector',
+            'fullTimeEmployees', 'website', 'country'
+        ]
+
+        return {key: value for key, value in self.stock.info.items() if key in datapoints}
+
 
     def get_holders(self, n_result=None):
         '''
