@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 // Import components
 import Navigation from '../Components/Navigation/Navigation';
+import Loading from '../Components/Loading/Loading';
 
 const DefaultLayout = props => {
   return (
@@ -17,6 +18,9 @@ const DefaultLayout = props => {
         </title>
         <meta name="description" content={props.description} />
       </Helmet>
+      {
+        props.isLoading ? <Loading /> : null
+      }
       <Navigation />
       {props.children}
     </Fragment>
