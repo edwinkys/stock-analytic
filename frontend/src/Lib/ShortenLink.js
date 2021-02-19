@@ -12,7 +12,7 @@ const ShortenLink = link => {
     return newLink
   }
 
-  return null;
+  return '-';
 };
 
 export default ShortenLink;

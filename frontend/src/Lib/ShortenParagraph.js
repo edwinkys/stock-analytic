@@ -18,7 +18,7 @@ const ShortenParagraph = paragraph => {
     return result;
   }
 
-  return null;
+  return '-';
 };
 
 export default ShortenParagraph;
