@@ -89,7 +89,7 @@ class Stock():
 
         return stock_data
 
-    def get_info(self):
+    def get_info(self, datapoints=None):
         '''
 
         Get summary of the stock.
@@ -100,17 +100,10 @@ class Stock():
 
         '''
 
-        datapoints = [
-            'shortName', 'symbol', 'open', 'previousClose',
-            'dayHigh', 'dayLow', 'fiftyTwoWeekHigh', 'fiftyTwoWeekLow',
-            'volume', 'averageDailyVolume10Day', 'marketCap', 'beta',
-            'trailingPE', 'trailingEps', 'dividendYield', 'profitMargins',
-            'pegRatio', 'enterpriseToRevenue', 'longBusinessSummary', 'sector',
-            'fullTimeEmployees', 'website', 'country'
-        ]
-
-        return {key: value for key, value in self.stock.info.items() if key in datapoints}
-
+        if datapoints:
+            return {key: value for key, value in self.stock.info.items() if key in datapoints}
+        else:
+            return self.stock.info
 
     def get_holders(self, n_result=None):
         '''
@@ -156,9 +149,11 @@ class Stock():
         @param trendline: String of the name of the column as y for training except for Date.
         @param average: String of the name of the column to get the average of (excluding Date).
 
-        return: Dictionary of the stock data
+        return: list of the stock data
 
         '''
+
+        date_column = 'Date'
 
         stock_data = self.__get_stock_data(period, interval, date_range)
 
@@ -176,8 +171,11 @@ class Stock():
 
         stock_data['OHLC Average'] = ohlc_avg
 
+        if interval in ['1m', '2m', '5m', '15m', '30m', '60m', '1h']:
+            date_column = 'Datetime'
+
         if trendline:
-            x = pd.to_datetime(stock_data['Date']).values.astype(float).reshape(-1, 1)
+            x = pd.to_datetime(stock_data[date_column]).values.astype(float).reshape(-1, 1)
             y = stock_data[[trendline]]
             pred = self.__create_trendline(x, y)
 
@@ -190,4 +188,4 @@ class Stock():
             mean_name = average + ' Mean'
             stock_data[mean_name] = [mean_value for i in range(len(stock_data))]
 
-        return stock_data.to_dict('index')
+        return stock_data.to_dict('records')

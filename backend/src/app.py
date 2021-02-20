@@ -16,9 +16,9 @@ def create_app(settings_override=None):
 
     Create Flask back end app.
 
-    @settings_override: Override app configuration
+    @settings_override: Override app configuration.
 
-    return: Flask app
+    return: Flask app.
 
     '''
 
@@ -44,9 +44,9 @@ def extensions(app):
 
     Add extensions to the app.
 
-    @app: Flask app
+    @app: Flask app.
 
-    return: None
+    return: None.
 
     '''
 

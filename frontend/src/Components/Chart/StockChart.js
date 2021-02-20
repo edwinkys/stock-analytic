@@ -37,7 +37,7 @@ const StockChart = props => {
           </linearGradient>
         </defs>
         <XAxis dataKey={props.label} hide={true} />
-        <YAxis hide={true} />
+        <YAxis hide={true} domain={['dataMin', 'dataMax']} />
         <Tooltip content={<CustomTooltip />} cursor={{opacity: 0}} />
         <CartesianGrid vertical={false} horizontal={false} stroke={color.gray} opacity={0.25} />
         <Area
@@ -52,7 +52,7 @@ const StockChart = props => {
 };
 
 StockChart.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.object.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired
 }

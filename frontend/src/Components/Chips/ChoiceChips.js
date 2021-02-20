@@ -9,7 +9,7 @@ const periods = [
     id: "1d"
   },
   {
-    id: "1w"
+    id: "5d"
   },
   {
     id: "1m"
