@@ -27,13 +27,14 @@ class Stock():
         self.symbol = symbol
         self.stock = yf.Ticker(symbol)
 
-    def __create_trendline(self, x, y):
+    def __create_trendline(self, x, y, x_predict):
         '''
 
         Create trendline from the data.
 
         @param x: Pandas series of datetime like pd.to_datetime(stock_data['Date']).values.astype(float).reshape(-1, 1).
         @param y: Pandas dataframe of price.
+        @param x_predict: Pandas series of datetime to predict.
 
         return: Numpy array of predicted y based on x.
 
@@ -43,7 +44,7 @@ class Stock():
 
         model = reg.fit(x, y)
 
-        prediction = model.predict(x)
+        prediction = model.predict(x_predict).ravel()
 
         return prediction
 
@@ -78,13 +79,15 @@ class Stock():
             stock_data = yf.download(
                 tickers=self.symbol,
                 start=date_range[0],
-                end=date_range[1]
+                end=date_range[1],
+                prepost=True
             )
         else:
             stock_data = yf.download(
                 tickers=self.symbol,
                 period=period,
-                interval=interval
+                interval=interval,
+                prepost=True
             )
 
         return stock_data
@@ -154,30 +157,36 @@ class Stock():
         '''
 
         date_column = 'Date'
+        ts_format = '%b %d, %Y'
+
+        if interval in ['1m', '2m', '5m', '15m', '30m', '60m', '90m', '1h']:
+            date_column = 'Datetime'
+            ts_format = '%a %d at %H:%M'
 
         stock_data = self.__get_stock_data(period, interval, date_range)
 
         # Enabling access to Date
         stock_data = stock_data.reset_index()
 
-        # OHLC Average
-        ohlc_avg = [
-            (stock_data['Open'].values[i]
-            + stock_data['High'].values[i]
-            + stock_data['Low'].values[i]
-            + stock_data['Close'].values[i])/4
-            for i in range(len(stock_data))
-        ]
-
-        stock_data['OHLC Average'] = ohlc_avg
-
-        if interval in ['1m', '2m', '5m', '15m', '30m', '60m', '1h']:
-            date_column = 'Datetime'
+        # Datetime
+        stock_data['Time'] = [ts.strftime(ts_format) for i, ts in stock_data[date_column].iteritems()]
+        stock_data['Index'] = [i + 1 for i, ts in stock_data[date_column].iteritems()]
 
         if trendline:
-            x = pd.to_datetime(stock_data[date_column]).values.astype(float).reshape(-1, 1)
-            y = stock_data[[trendline]]
-            pred = self.__create_trendline(x, y)
+            temp_stock_data = stock_data
+
+            if temp_stock_data.isnull().values.any():
+                temp_stock_data = temp_stock_data.dropna()
+
+
+            x = temp_stock_data[['Index']]
+            x_predict = stock_data[['Index']]
+            # x = pd.to_datetime(temp_stock_data[date_column]).values.astype(float).reshape(-1, 1)
+            # x_predict = pd.to_datetime(stock_data[date_column]).values.astype(float).reshape(-1, 1)
+
+            y = temp_stock_data[[trendline]]
+
+            pred = self.__create_trendline(x, y, x_predict)
 
             column_name = trendline + ' Prediction'
             stock_data[column_name] = pd.Series(pred)
@@ -187,5 +196,12 @@ class Stock():
 
             mean_name = average + ' Mean'
             stock_data[mean_name] = [mean_value for i in range(len(stock_data))]
+
+        # Remove date or datetime column
+        columns_to_keep = ['Close', 'Time', 'Close Prediction', 'Close Mean']
+        stock_data.drop(stock_data.columns.difference(columns_to_keep), 1, inplace=True)
+
+        # Remove NaN value
+        stock_data.dropna(inplace=True)
 
         return stock_data.to_dict('records')

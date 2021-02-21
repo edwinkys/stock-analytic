@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^12.6.3",
     "autoprefixer": "^9.8.6",
     "axios": "^0.21.1",
+    "d3-shape": "^2.0.0",
     "postcss": "^7.0.35",
     "prop-types": "^15.7.2",
     "react": "^17.0.1",

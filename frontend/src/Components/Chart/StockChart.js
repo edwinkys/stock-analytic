@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {curveBundle} from 'd3-shape';
 
 // Import chart components
 import {
   ComposedChart,
   ResponsiveContainer,
   Area,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -42,9 +44,28 @@ const StockChart = props => {
         <CartesianGrid vertical={false} horizontal={false} stroke={color.gray} opacity={0.25} />
         <Area
           type="monotone"
+          connectNulls={true}
           dataKey={props.value}
           stroke="url(#lineGradient)"
           fill="url(#areaGradient)"
+        />
+        <Line
+          type={curveBundle.beta(0)}
+          stroke="url(#lineGradient)"
+          connectNulls={true}
+          dot={false}
+          activeDot={false}
+          opacity={0.5}
+          dataKey={props.trend}
+        />
+        <Line
+          stroke="#73738c"
+          connectNulls={true}
+          dot={false}
+          activeDot={false}
+          opacity={0.5}
+          dataKey={props.average}
+          strokeDasharray="5 5"
         />
       </ComposedChart>
     </ResponsiveContainer>
@@ -52,9 +73,11 @@ const StockChart = props => {
 };
 
 StockChart.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  trend: PropTypes.string,
+  average: PropTypes.string
 }
 
 export default StockChart;

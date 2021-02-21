@@ -47,7 +47,7 @@ def data():
         stock = Stock(ticker)
 
         if period == '1d':
-            interval = '2m'
+            interval = '15m'
         elif period == '5d':
             interval = '60m'
         elif period == '1m':
@@ -61,8 +61,10 @@ def data():
         elif period == '5y':
             interval = '1mo'
 
-        price_data = stock.get_data(period, interval)
+        price_data = stock.get_data(period, interval, trendline='Close', average='Close')
 
-        return jsonify(price_data)
+        result = jsonify(price_data)
+
+        return result
 
     return None

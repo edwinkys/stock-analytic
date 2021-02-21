@@ -20,8 +20,6 @@ import ToPercentage from '../Lib/ToPercentage';
 import ShortenLink from '../Lib/ShortenLink';
 
 const StockPage = props => {
-  let datetimeLabel = 'Date';
-
   const {ticker} = useParams();
   const [activePeriod, setActivePeriod] = useState("3m");
   const [stockInfo, setStockInfo] = useState({});
@@ -61,7 +59,6 @@ const StockPage = props => {
     })
       .then((response) => {
         setStockData(response.data);
-        console.log(response.data);
         setDataLoaded(true);
       })
       .catch((error) => {
@@ -174,22 +171,27 @@ const StockPage = props => {
     }
   ];
 
-  // Datetime label
-  if (activePeriod in ['1d', '5d']) {
-    datetimeLabel = 'Datetime';
-  }
-
   return (
     <DefaultLayout isLoaded={isDataLoaded}>
       <div className="flex flex-col container wrapper">
         <div className="section-sm flex-col">
           <div className="flex flex-col mb-6">
-            <span className="text-xs text-gray-lighter mb-3">{stockInfo.shortName}</span>
-            <span className="text-5xl font-bold mb-6">{stockInfo.symbol}</span>
-            <span className="text-3xl text-secondary">$140.00</span>
+            <span className="text-xs text-gray-lighter mb-3">
+              {stockInfo.shortName}
+            </span>
+            <span className="text-5xl font-bold mb-6">
+              {stockInfo.symbol}
+            </span>
+            <span className="text-3xl text-secondary">
+              {
+                stockData[stockData.length - 1] ?
+                FixedDecimal(stockData[stockData.length - 1].Close) :
+                "-"
+              }
+            </span>
           </div>
           <div className="flex flex-col mb-6">
-            <StockChart data={stockData} label={datetimeLabel} value="Close" />
+            <StockChart data={stockData} label="Time" value="Close" trend="Close Prediction" average="Close Mean" />
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" callback={callbackActivePeriod} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
