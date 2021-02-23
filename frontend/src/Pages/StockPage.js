@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {useParams} from 'react-router-dom';
+import {useParams, useHistory} from 'react-router-dom';
 import Axios from '../Lib/Axios';
 
 // Import layout
@@ -25,6 +25,7 @@ const StockPage = props => {
   const [stockInfo, setStockInfo] = useState({});
   const [stockData, setStockData] = useState({});
   const [isDataLoaded, setDataLoaded] = useState(false);
+  const history = useHistory();
 
   // Callback Function
   const callbackActivePeriod = period => {
@@ -46,8 +47,9 @@ const StockPage = props => {
       })
       .catch((error) => {
         console.log(error);
+        history.push('/page-not-found');
       });
-  }, [ticker]);
+  }, [ticker, history]);
 
   // Get stock price data
   useEffect(() => {
@@ -59,12 +61,12 @@ const StockPage = props => {
     })
       .then((response) => {
         setStockData(response.data);
-        setDataLoaded(true);
       })
       .catch((error) => {
         console.log(error);
+        history.push('/page-not-found');
       });
-  }, [ticker, activePeriod]);
+  }, [ticker, activePeriod, history]);
 
 
   // Market Summary Data

@@ -7,6 +7,7 @@ import {
 // Import pages
 import HomePage from './Pages/HomePage';
 import StockPage from './Pages/StockPage';
+import NotFoundPage from './Pages/NotFoundPage';
 
 // Route List
 const routeList = [
@@ -18,6 +19,9 @@ const routeList = [
   {
     path: "/stock/:ticker/",
     component: <StockPage />
+  },
+  {
+    component: <NotFoundPage />
   }
 ]
 

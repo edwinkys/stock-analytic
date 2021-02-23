@@ -4,7 +4,7 @@ Endpoints for Individual Ticker
 
 '''
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, request, jsonify, make_response
 from src.blueprints.stock.model import Stock
 
 stock = Blueprint('stock', __name__, url_prefix='/api')
@@ -24,6 +24,10 @@ def info():
 
     if ticker:
         company_stock = Stock(ticker)
+
+        # Check the price data
+        if company_stock is None:
+            return make_response(jsonify('Ticker Not Found'), 404)
 
         return company_stock.get_info()
 
@@ -62,6 +66,10 @@ def data():
             interval = '1mo'
 
         price_data = stock.get_data(period, interval, trendline='Close', average='Close')
+
+        # Check the price data
+        if price_data is None:
+            return make_response(jsonify('Ticker Not Found'), 404)
 
         result = jsonify(price_data)
 

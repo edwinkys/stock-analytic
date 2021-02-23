@@ -15,7 +15,7 @@ Main Stylesheet
 @layer base {
     html, body {
         @apply bg-dark text-light;
-        @apply leading-normal tracking-widest;
+        @apply leading-normal tracking-widest !important;
 
         font-family: "Open Sans", sans-serif !important;
         -ms-overflow-style: none;

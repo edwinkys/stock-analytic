@@ -173,29 +173,35 @@ class Stock():
         stock_data['Index'] = [i + 1 for i, ts in stock_data[date_column].iteritems()]
 
         if trendline:
-            temp_stock_data = stock_data
+            try:
+                temp_stock_data = stock_data
 
-            if temp_stock_data.isnull().values.any():
-                temp_stock_data = temp_stock_data.dropna()
+                if temp_stock_data.isnull().values.any():
+                    temp_stock_data = temp_stock_data.dropna()
 
+                x = temp_stock_data[['Index']]
+                x_predict = stock_data[['Index']]
+                # x = pd.to_datetime(temp_stock_data[date_column]).values.astype(float).reshape(-1, 1)
+                # x_predict = pd.to_datetime(stock_data[date_column]).values.astype(float).reshape(-1, 1)
 
-            x = temp_stock_data[['Index']]
-            x_predict = stock_data[['Index']]
-            # x = pd.to_datetime(temp_stock_data[date_column]).values.astype(float).reshape(-1, 1)
-            # x_predict = pd.to_datetime(stock_data[date_column]).values.astype(float).reshape(-1, 1)
+                y = temp_stock_data[[trendline]]
 
-            y = temp_stock_data[[trendline]]
+                pred = self.__create_trendline(x, y, x_predict)
 
-            pred = self.__create_trendline(x, y, x_predict)
+                column_name = trendline + ' Prediction'
+                stock_data[column_name] = pd.Series(pred)
+            except ValueError:
+                return None
 
-            column_name = trendline + ' Prediction'
-            stock_data[column_name] = pd.Series(pred)
 
         if average:
-            mean_value = self.__calculate_average(stock_data, average)
+            try:
+                mean_value = self.__calculate_average(stock_data, average)
 
-            mean_name = average + ' Mean'
-            stock_data[mean_name] = [mean_value for i in range(len(stock_data))]
+                mean_name = average + ' Mean'
+                stock_data[mean_name] = [mean_value for i in range(len(stock_data))]
+            except ValueError:
+                return None
 
         # Remove date or datetime column
         columns_to_keep = ['Close', 'Time', 'Close Prediction', 'Close Mean']
