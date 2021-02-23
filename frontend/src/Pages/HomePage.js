@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 // Import layout
-import DefaultLayout from '../Layouts/DefaultLayout';
+import DefaultLayout from "../Layouts/DefaultLayout";
 
 const HomePage = () => {
   return (

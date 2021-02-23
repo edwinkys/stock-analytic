@@ -9,7 +9,7 @@ const FixedDecimal = number => {
     return number.toFixed(2);
   }
 
-  return '-';
+  return "-";
 };
 
 export default FixedDecimal;

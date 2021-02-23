@@ -71,7 +71,23 @@ def data():
         if price_data is None:
             return make_response(jsonify('Ticker Not Found'), 404)
 
-        result = jsonify(price_data)
+        # Check percentage of increment
+        initial_price = price_data[0].get('Close')
+        latest_price = price_data[len(price_data) - 1].get('Close')
+        increment = latest_price - initial_price
+        increment_percentage = increment / initial_price
+
+        if increment >= 0:
+            is_increasing = True
+        else:
+            is_increasing = False
+
+        result = jsonify(
+            price=price_data,
+            increment=increment,
+            incrementPercentage=increment_percentage,
+            isIncreasing=is_increasing
+        )
 
         return result
 

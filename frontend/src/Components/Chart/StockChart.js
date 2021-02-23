@@ -1,6 +1,6 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {curveBundle} from 'd3-shape';
+import React from "react";
+import PropTypes from "prop-types";
+import {curveBundle} from "d3-shape";
 
 // Import chart components
 import {
@@ -12,16 +12,17 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip
-} from 'recharts';
+} from "recharts";
 
 // Import tooltips
-import CustomTooltip from './CustomTooltip';
+import CustomTooltip from "./CustomTooltip";
 
 // Color list
 const color = {
   blue: "#5547eb",
   purple: "#8767e4",
-  gray: "#73738c"
+  gray: "#73738c",
+  red: "#ff5757"
 };
 
 const StockChart = props => {
@@ -29,9 +30,13 @@ const StockChart = props => {
     <ResponsiveContainer width="100%" height={300}>
       <ComposedChart data={props.data}>
         <defs>
-          <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+          <linearGradient id="areaGradientIncreasing" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={color.purple} stopOpacity={0.5}/>
             <stop offset="100%" stopColor={color.purple} stopOpacity={0}/>
+          </linearGradient>
+          <linearGradient id="areaGradientDecreasing" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={color.red} stopOpacity={0.5}/>
+            <stop offset="100%" stopColor={color.red} stopOpacity={0}/>
           </linearGradient>
           <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
             <stop offset="0%" stopColor={color.blue} stopOpacity={1}/>
@@ -39,19 +44,19 @@ const StockChart = props => {
           </linearGradient>
         </defs>
         <XAxis dataKey={props.label} hide={true} />
-        <YAxis hide={true} domain={['dataMin', 'dataMax']} />
+        <YAxis hide={true} domain={["dataMin", "dataMax"]} />
         <Tooltip content={<CustomTooltip />} cursor={{opacity: 0}} />
         <CartesianGrid vertical={false} horizontal={false} stroke={color.gray} opacity={0.25} />
         <Area
           type="monotone"
           connectNulls={true}
           dataKey={props.value}
-          stroke="url(#lineGradient)"
-          fill="url(#areaGradient)"
+          stroke={props.isIncreasing ? "url(#lineGradient)" : color.red}
+          fill={props.isIncreasing ? "url(#areaGradientIncreasing)" : "url(#areaGradientDecreasing)"}
         />
         <Line
           type={curveBundle.beta(0)}
-          stroke="url(#lineGradient)"
+          stroke={props.isIncreasing ? "url(#lineGradient)" : color.red}
           connectNulls={true}
           dot={false}
           activeDot={false}
@@ -59,7 +64,7 @@ const StockChart = props => {
           dataKey={props.trend}
         />
         <Line
-          stroke="#73738c"
+          stroke={color.gray}
           connectNulls={true}
           dot={false}
           activeDot={false}
@@ -77,7 +82,8 @@ StockChart.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   trend: PropTypes.string,
-  average: PropTypes.string
+  average: PropTypes.string,
+  isIncreasing: PropTypes.bool
 }
 
 export default StockChart;

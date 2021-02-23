@@ -8,11 +8,11 @@ const ShortenLink = link => {
   let newLink;
 
   if (link) {
-    newLink = link.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split('/')[0];
+    newLink = link.replace(/^(?:https?:\/\/)?(?:www\.)?/i, "").split("/")[0];
     return newLink
   }
 
-  return '-';
+  return "-";
 };
 
 export default ShortenLink;

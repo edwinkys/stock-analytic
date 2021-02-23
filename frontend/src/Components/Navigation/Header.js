@@ -1,12 +1,12 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import {Link} from "react-router-dom";
 
 // Import assets
-import logo from '../../Assets/logo.png';
+import logo from "../../Assets/logo.png";
 
 // Import icons
-import {IoLogoTwitter, IoMenuOutline} from 'react-icons/io5';
+import {IoLogoTwitter, IoMenuOutline} from "react-icons/io5";
 
 const Header = props => {
   return (

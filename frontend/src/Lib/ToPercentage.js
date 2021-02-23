@@ -12,12 +12,12 @@ const ToPercentage = number => {
 
     number = Math.round(number * 100) / 100;
 
-    newNumber = number.toString() + '%';
+    newNumber = number.toString() + "%";
 
     return newNumber
   }
 
-  return '-';
+  return "-";
 };
 
 export default ToPercentage;

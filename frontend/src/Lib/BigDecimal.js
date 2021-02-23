@@ -16,25 +16,25 @@ const BigDecimal = number => {
     if (number >= 1000 && number < 1_000_000) {
       number /= 1000;
       number = Round(number);
-      newNumber = number.toString() + 'K';
+      newNumber = number.toString() + "K";
     }
 
     else if (number >= 1_000_000 && number < 1_000_000_000) {
       number /= 1_000_000;
       number = Round(number);
-      newNumber = number.toString() + 'M';
+      newNumber = number.toString() + "M";
     }
 
     else if (number >= 1_000_000_000 && number < 1_000_000_000_000) {
       number /= 1_000_000_000;
       number = Round(number);
-      newNumber = number.toString() + 'B';
+      newNumber = number.toString() + "B";
     }
 
     else if (number >= 1_000_000_000_000) {
       number /= 1_000_000_000_000;
       number = Round(number);
-      newNumber = number.toString() + 'T';
+      newNumber = number.toString() + "T";
     }
 
     else {
@@ -44,7 +44,7 @@ const BigDecimal = number => {
     return newNumber;
   }
 
-  return '-';
+  return "-";
 };
 
 export default BigDecimal;

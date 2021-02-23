@@ -1,23 +1,23 @@
-import React, {useState, useEffect} from 'react';
-import {useParams, useHistory} from 'react-router-dom';
-import Axios from '../Lib/Axios';
+import React, {useState, useEffect} from "react";
+import {useParams, useHistory} from "react-router-dom";
+import Axios from "../Lib/Axios";
 
 // Import layout
-import DefaultLayout from '../Layouts/DefaultLayout';
+import DefaultLayout from "../Layouts/DefaultLayout";
 
 // Import components
-import StockChart from '../Components/Chart/StockChart';
-import ChoiceChips from '../Components/Chips/ChoiceChips';
-import Card from '../Components/Card/Card';
-import CardGrid from '../Components/Card/CardGrid';
-import CardGridData from '../Components/Card/CardGridData';
+import StockChart from "../Components/Chart/StockChart";
+import ChoiceChips from "../Components/Chips/ChoiceChips";
+import Card from "../Components/Card/Card";
+import CardGrid from "../Components/Card/CardGrid";
+import CardGridData from "../Components/Card/CardGridData";
 
 // Import util function
-import ShortenParagraph from '../Lib/ShortenParagraph';
-import BigDecimal from '../Lib/BigDecimal';
-import FixedDecimal from '../Lib/FixedDecimal';
-import ToPercentage from '../Lib/ToPercentage';
-import ShortenLink from '../Lib/ShortenLink';
+import ShortenParagraph from "../Lib/ShortenParagraph";
+import BigDecimal from "../Lib/BigDecimal";
+import FixedDecimal from "../Lib/FixedDecimal";
+import ToPercentage from "../Lib/ToPercentage";
+import ShortenLink from "../Lib/ShortenLink";
 
 const StockPage = props => {
   const {ticker} = useParams();
@@ -26,6 +26,8 @@ const StockPage = props => {
   const [stockData, setStockData] = useState({});
   const [isDataLoaded, setDataLoaded] = useState(false);
   const history = useHistory();
+
+  let increasingTextStyle;
 
   // Callback Function
   const callbackActivePeriod = period => {
@@ -36,7 +38,7 @@ const StockPage = props => {
   useEffect(() => {
     setDataLoaded(false);
 
-    Axios.get('/info', {
+    Axios.get("/info", {
       params: {
         ticker: ticker
       }
@@ -46,14 +48,14 @@ const StockPage = props => {
         setDataLoaded(true);
       })
       .catch((error) => {
+        history.push("/page-not-found");
         console.log(error);
-        history.push('/page-not-found');
       });
   }, [ticker, history]);
 
   // Get stock price data
   useEffect(() => {
-    Axios.get('/data', {
+    Axios.get("/data", {
       params: {
         ticker: ticker,
         period: activePeriod
@@ -63,8 +65,8 @@ const StockPage = props => {
         setStockData(response.data);
       })
       .catch((error) => {
+        history.push("/page-not-found");
         console.log(error);
-        history.push('/page-not-found');
       });
   }, [ticker, activePeriod, history]);
 
@@ -173,6 +175,14 @@ const StockPage = props => {
     }
   ];
 
+  // Check if the stock is increasing
+  if (stockData.isIncreasing) {
+    increasingTextStyle = " text-secondary";
+  }
+  else {
+    increasingTextStyle = " text-error";
+  }
+
   return (
     <DefaultLayout isLoaded={isDataLoaded}>
       <div className="flex flex-col container wrapper">
@@ -184,16 +194,41 @@ const StockPage = props => {
             <span className="text-5xl font-bold mb-6">
               {stockInfo.symbol}
             </span>
-            <span className="text-3xl text-secondary">
+            <span className={"text-3xl mb-3" + increasingTextStyle}>
               {
-                stockData[stockData.length - 1] ?
-                FixedDecimal(stockData[stockData.length - 1].Close) :
+                stockData.price ?
+                FixedDecimal(stockData.price[stockData.price.length - 1].Close) :
                 "-"
               }
             </span>
+            <span className={"text-xs" + increasingTextStyle}>
+              (
+              {
+                stockData.isIncreasing ?
+                "+" :
+                null
+              }
+              {
+                stockData.increment ?
+                FixedDecimal(stockData.increment) :
+                null
+              }
+              /
+              {
+                stockData.isIncreasing ?
+                "+" :
+                null
+              }
+              {
+                stockData.incrementPercentage ?
+                ToPercentage(stockData.incrementPercentage) :
+                null
+              }
+              )
+            </span>
           </div>
           <div className="flex flex-col mb-6">
-            <StockChart data={stockData} label="Time" value="Close" trend="Close Prediction" average="Close Mean" />
+            <StockChart data={stockData.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={stockData.isIncreasing} />
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" callback={callbackActivePeriod} />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">

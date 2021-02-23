@@ -1,8 +1,8 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
 // Import components
-import Tooltip from '../Tooltip/Tooltip';
+import Tooltip from "../Tooltip/Tooltip";
 
 const CardGridData = props => {
   return (

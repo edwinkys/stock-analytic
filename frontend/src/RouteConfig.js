@@ -1,13 +1,13 @@
-import React from 'react';
+import React from "react";
 import {
   Switch,
   Route
-} from 'react-router-dom';
+} from "react-router-dom";
 
 // Import pages
-import HomePage from './Pages/HomePage';
-import StockPage from './Pages/StockPage';
-import NotFoundPage from './Pages/NotFoundPage';
+import HomePage from "./Pages/HomePage";
+import StockPage from "./Pages/StockPage";
+import NotFoundPage from "./Pages/NotFoundPage";
 
 // Route List
 const routeList = [

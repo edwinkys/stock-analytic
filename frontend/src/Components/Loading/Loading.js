@@ -1,11 +1,11 @@
-import React, {Fragment} from 'react';
+import React, {Fragment} from "react";
 
 // Import static
-import './Loading.css';
+import "./Loading.css";
 
 const Loading = () => (
   <Fragment>
-    <div id='loader-wrapper'>
+    <div id="loader-wrapper">
       <div id="loader">
           <span className="ripple ripple-bg"></span>
           <span className="ripple ripple-bg"></span>

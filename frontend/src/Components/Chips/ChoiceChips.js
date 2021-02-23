@@ -1,8 +1,8 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import React, {useState} from "react";
+import PropTypes from "prop-types";
 
 // Import components
-import Chip from './Chip';
+import Chip from "./Chip";
 
 const periods = [
   {

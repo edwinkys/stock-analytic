@@ -1,8 +1,8 @@
-import React from 'react';
-import {BrowserRouter} from 'react-router-dom';
+import React from "react";
+import {BrowserRouter} from "react-router-dom";
 
 // Import router
-import RouteConfig from './RouteConfig';
+import RouteConfig from "./RouteConfig";
 
 const App = () => {
   return (

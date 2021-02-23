@@ -1,8 +1,8 @@
-import React, {Fragment, useState} from 'react';
+import React, {Fragment, useState} from "react";
 
 // Import components
-import Header from './Header';
-import Sidebar from './Sidebar';
+import Header from "./Header";
+import Sidebar from "./Sidebar";
 
 const Navigation = () => {
   const [isSidebarActive, setSidebarActive] = useState(false);

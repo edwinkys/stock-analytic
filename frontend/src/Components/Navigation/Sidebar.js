@@ -1,12 +1,12 @@
-import React, {Fragment, useState} from 'react';
-import PropTypes from 'prop-types';
-import {useHistory} from 'react-router-dom';
+import React, {Fragment, useState} from "react";
+import PropTypes from "prop-types";
+import {useHistory} from "react-router-dom";
 
 // Import icons
-import {IoCloseOutline} from 'react-icons/io5';
+import {IoCloseOutline} from "react-icons/io5";
 
 // Import components
-import StringField from '../Form/StringField';
+import StringField from "../Form/StringField";
 
 const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";

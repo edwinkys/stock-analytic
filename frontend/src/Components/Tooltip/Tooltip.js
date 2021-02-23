@@ -1,6 +1,6 @@
-import React from 'react';
-import ReactTooltip from 'react-tooltip';
-import PropTypes from 'prop-types';
+import React from "react";
+import ReactTooltip from "react-tooltip";
+import PropTypes from "prop-types";
 
 const Tooltip = props => {
   return (

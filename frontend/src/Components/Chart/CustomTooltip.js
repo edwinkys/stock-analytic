@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 
 // Import Util
-import FixedDecimal from '../../Lib/FixedDecimal';
+import FixedDecimal from "../../Lib/FixedDecimal";
 
 const CustomTooltip = props => {
   if (props.active && props.payload) {

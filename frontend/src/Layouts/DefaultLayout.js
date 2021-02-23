@@ -1,10 +1,10 @@
-import React from 'react';
+import React from "react";
 import {Helmet} from "react-helmet";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 
 // Import components
-import Navigation from '../Components/Navigation/Navigation';
-import Loading from '../Components/Loading/Loading';
+import Navigation from "../Components/Navigation/Navigation";
+import Loading from "../Components/Loading/Loading";
 
 const DefaultLayout = props => {
   return (

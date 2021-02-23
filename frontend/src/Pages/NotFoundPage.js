@@ -1,9 +1,9 @@
-import React, {useEffect} from 'react';
-import {useHistory} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, {useEffect} from "react";
+import {useHistory} from "react-router-dom";
+import PropTypes from "prop-types";
 
 // Import static
-import NotFoundImage from '../Assets/404.png';
+import NotFoundImage from "../Assets/404.png";
 
 const NotFoundPage = props => {
   let message;
@@ -13,13 +13,13 @@ const NotFoundPage = props => {
     message = props.message;
   }
   else {
-    message = 'Oops! We can\'t find what you are looking for. We will bring you home.'
+    message = "Oops! We can't find what you are looking for. We will bring you home."
   }
 
   // Redirect
   useEffect(() => {
     const timer = setTimeout(() => {
-      history.push('/');
+      history.push("/");
     }, 10000);
     return () => clearTimeout(timer);
   });
