@@ -16,7 +16,7 @@ const CardGridData = props => {
           {props.label}
         </span>
       }
-      <span className="ml-3 flex flex-end text-right overflow-auto">
+      <span className="ml-3 flex flex-end text-right overflow-auto no-scrollbar">
         {props.data}
       </span>
       {

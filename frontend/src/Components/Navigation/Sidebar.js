@@ -8,29 +8,52 @@ import {IoCloseOutline} from "react-icons/io5";
 // Import components
 import StringField from "../Form/StringField";
 
+// Import data
+import tickerList from "../../Assets/tickers.json";
+
 const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";
   let path = "";
   let toggler = props.sidebarToggler;
+  let regex;
 
   const [ticker, setTicker] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
   const history = useHistory();
 
   // Input Uppercase
-  const inputUpperCaseHandler = e => {
-    e.target.value = ("" + e.target.value).toUpperCase();
+  const inputSuggestion = e => {
+    regex = new RegExp(`^${ticker}`, 'i');
+    setSuggestions(tickerList.sort().filter(s => regex.test(s[0])));
+
+    // Check if ticker empty for suggestion
+    if (ticker.length === 0) {
+      setSuggestions([]);
+    }
   };
+
+  // Select Suggestion
+  const selectSuggestion = value => {
+    setTicker(value.toLowerCase());
+    setSuggestions([]);
+    pushToTicker(value.toLowerCase());
+  }
 
   // Redirect to Ticker
   const changeHandler = e => {
     setTicker(e.target.value.toLowerCase());
   };
 
-  const submitHandler = e => {
-    e.preventDefault();
+  const pushToTicker = ticker => {
     path = "/stock/" + ticker + "/";
     history.push(path);
     toggler();
+    setSuggestions([]);
+  };
+
+  const submitHandler = e => {
+    e.preventDefault();
+    pushToTicker(ticker);
   };
 
   return (
@@ -49,11 +72,24 @@ const Sidebar = props => {
             type="text"
             placeholder="TSLA"
             value={ticker.toUpperCase()}
-            onKeyUp={inputUpperCaseHandler}
+            onKeyUp={inputSuggestion}
             onChange={changeHandler}
             autoFocus={props.isActive}
           />
         </form>
+        {
+          suggestions.length !== 0 ?
+          <div className="flex">
+            <div className="absolute w-full px-6">
+              <ul className="flex flex-col overflow-y-auto bg-gray-darker border border-secondary rounded max-h-36">
+                {
+                  suggestions.map((item, i) => (<li key={i} className="flex p-3 w-full cursor-pointer hover:text-secondary" onClick={() => selectSuggestion(item[0])}>{item[0]}</li>))
+                }
+              </ul>
+            </div>
+          </div> :
+          null
+        }
       </nav>
     </Fragment>
   );

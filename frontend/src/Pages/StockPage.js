@@ -213,7 +213,7 @@ const StockPage = props => {
                 FixedDecimal(stockData.increment) :
                 null
               }
-              /
+              &emsp;
               {
                 stockData.isIncreasing ?
                 "+" :

@@ -26,6 +26,8 @@ const color = {
 };
 
 const StockChart = props => {
+  const straightLine = curveBundle.beta(0);
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <ComposedChart data={props.data}>
@@ -55,7 +57,7 @@ const StockChart = props => {
           fill={props.isIncreasing ? "url(#areaGradientIncreasing)" : "url(#areaGradientDecreasing)"}
         />
         <Line
-          type={curveBundle.beta(0)}
+          type={straightLine}
           stroke={props.isIncreasing ? "url(#lineGradient)" : color.red}
           connectNulls={true}
           dot={false}
