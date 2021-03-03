@@ -33,21 +33,21 @@ const Sidebar = props => {
   };
 
   // Bold Text
+  /*
   const boldText = value => {
-    const textArray = value.split(ticker);
-    return (
-      <span>
-        {textArray.map((item, index) => (
-          <>
-            {item}
-            {index !== textArray.length - 1 && (
-              <b>{ticker}</b>
-            )}
-          </>
-        ))};
-      </span>
-    );
+    if (value && ticker) {
+      const textArray = value.split(ticker.toUpperCase());
+      return (
+        <span>
+          <b>{ticker.toUpperCase()}</b>
+          {textArray[1]}
+        </span>
+      );
+    }
+
+    return null;
   };
+  */
 
   // Select Suggestion
   const selectSuggestion = value => {
@@ -100,7 +100,7 @@ const Sidebar = props => {
             <div className="absolute w-full px-6">
               <ul className="flex flex-col overflow-y-auto bg-gray-darker border border-secondary rounded max-h-36">
                 {
-                  suggestions.map((item, i) => (<li key={i} className="flex p-3 w-full cursor-pointer hover:text-secondary" onClick={() => selectSuggestion(item[0])}>{boldText(item[0])}</li>))
+                  suggestions.map((item, i) => (<li key={i} className="flex p-3 w-full cursor-pointer hover:text-secondary" onClick={() => selectSuggestion(item[0])}>{item[0]}</li>))
                 }
               </ul>
             </div>
