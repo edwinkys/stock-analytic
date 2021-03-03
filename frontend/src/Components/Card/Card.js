@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const Card = props => {
+  let hideStyle = props.hideCard ? " hidden" : " flex"
   return (
-    <div className="flex flex-col p-6 bg-gray-darker rounded-lg">
+    <div className={"flex-col p-6 bg-gray-darker rounded-lg" + hideStyle}>
       <span className="font-bold mb-6">
         {props.title}
       </span>
@@ -15,7 +16,8 @@ const Card = props => {
 
 Card.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  hideCard: PropTypes.bool
 }
 
 export default Card;

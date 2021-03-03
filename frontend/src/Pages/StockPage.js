@@ -27,7 +27,7 @@ const StockPage = props => {
   const [isDataLoaded, setDataLoaded] = useState(false);
   const history = useHistory();
 
-  let increasingTextStyle;
+  let increasingTextStyle, hideCard, gridCols;
 
   // Callback Function
   const callbackActivePeriod = period => {
@@ -183,6 +183,16 @@ const StockPage = props => {
     increasingTextStyle = " text-error";
   }
 
+  // Check if it's an ETF
+  if (stockInfo.fullTimeEmployees && stockInfo.trailingPE) {
+    hideCard = false;
+    gridCols = " md:grid-cols-2";
+  }
+  else {
+    hideCard = true;
+    gridCols = "";
+  }
+
   return (
     <DefaultLayout isLoaded={isDataLoaded}>
       <div className="flex flex-col container wrapper">
@@ -231,7 +241,7 @@ const StockPage = props => {
             <StockChart data={stockData.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={stockData.isIncreasing} />
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" callback={callbackActivePeriod} />
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+          <div className={"grid grid-cols-1 gap-6 mb-6" + gridCols}>
             <Card title="Market Summary">
               <CardGrid>
                 {
@@ -239,7 +249,7 @@ const StockPage = props => {
                 }
               </CardGrid>
             </Card>
-            <Card title="Stock Summary">
+            <Card title="Stock Summary" hideCard={hideCard}>
               <CardGrid>
                 {
                   stockSummaryData.map((item, index) => <CardGridData key={index} label={item.label} data={item.data} tooltipId={item.tooltipId} tooltipMessage={item.tooltipMessage} />)
@@ -248,7 +258,7 @@ const StockPage = props => {
             </Card>
           </div>
           <div className="flex flex-col">
-            <Card title="Company Profile">
+            <Card title="Company Profile" hideCard={hideCard}>
               <div className="flex flex-col">
                 <div className="text-gray-lighter mb-6">
                   {
