@@ -73,7 +73,7 @@ def data():
 
         # Check percentage of increment
         initial_price = price_data[0].get('Close')
-        latest_price = price_data[len(price_data) - 1].get('Close')
+        latest_price = stock.get_latest_price()
         increment = latest_price - initial_price
         increment_percentage = increment / initial_price
 
@@ -84,6 +84,7 @@ def data():
 
         result = jsonify(
             price=price_data,
+            latestPrice=latest_price,
             increment=increment,
             incrementPercentage=increment_percentage,
             isIncreasing=is_increasing

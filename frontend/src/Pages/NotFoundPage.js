@@ -20,7 +20,7 @@ const NotFoundPage = props => {
   useEffect(() => {
     const timer = setTimeout(() => {
       history.push("/");
-    }, 10000);
+    }, 7000);
     return () => clearTimeout(timer);
   });
 

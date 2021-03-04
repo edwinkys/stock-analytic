@@ -24,7 +24,7 @@ const Sidebar = props => {
   // Input Uppercase
   const inputSuggestion = e => {
     regex = new RegExp(`^${ticker}`, 'i');
-    setSuggestions(tickerList.sort().filter(s => regex.test(s[0])));
+    setSuggestions(tickerList.sort().filter(s => regex.test(s)));
 
     // Check if ticker empty for suggestion
     if (ticker.length === 0) {
@@ -33,7 +33,6 @@ const Sidebar = props => {
   };
 
   // Bold Text
-  /*
   const boldText = value => {
     if (value && ticker) {
       const textArray = value.split(ticker.toUpperCase());
@@ -47,7 +46,6 @@ const Sidebar = props => {
 
     return null;
   };
-  */
 
   // Select Suggestion
   const selectSuggestion = value => {
@@ -95,12 +93,12 @@ const Sidebar = props => {
           />
         </form>
         {
-          suggestions.length !== 0 ?
+          suggestions.length !== 0 && ticker.length > 1 ?
           <div className="flex">
             <div className="absolute w-full px-6">
               <ul className="flex flex-col overflow-y-auto bg-gray-darker border border-secondary rounded max-h-36">
                 {
-                  suggestions.map((item, i) => (<li key={i} className="flex p-3 w-full cursor-pointer hover:text-secondary" onClick={() => selectSuggestion(item[0])}>{item[0]}</li>))
+                  suggestions.map((item, i) => (<li key={i} className="flex p-3 w-full cursor-pointer hover:text-secondary" onClick={() => selectSuggestion(item)}>{boldText(item, ticker)}</li>))
                 }
               </ul>
             </div>

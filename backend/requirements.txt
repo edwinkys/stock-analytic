@@ -16,5 +16,6 @@ Werkzeug==1.0.1
 
 # API
 yfinance==0.1.55
+yahoo-fin==0.8.7
 pandas==1.2.1
 scikit-learn==0.24.1

@@ -8,6 +8,7 @@ import pandas as pd
 import yfinance as yf
 
 from sklearn.linear_model import LinearRegression
+from yahoo_fin.stock_info import get_live_price
 
 
 class Stock():
@@ -108,38 +109,18 @@ class Stock():
         else:
             return self.stock.info
 
-    def get_holders(self, n_result=None):
+    def get_latest_price(self):
         '''
 
-        Get the shareholders of the company.
+        Get the latest price of the stock
 
-        @param n_result: int to return some of the shareholders, max: 10.
-
-        return: Dictionary of shareholders.
-
-        '''
-
-        shareholders = self.stock.institutional_holders
-
-        shareholders = shareholders.to_dict('index')
-
-        if n_result:
-            return dict(list(shareholders.items())[:n_result])
-        else:
-            return shareholders
-
-    def get_calendar(self):
-        '''
-
-        Get the update from the latest schedule.
-
-        return: Dictionary of the update.
+        return: Latest price of the stock
 
         '''
 
-        update = self.stock.calendar.to_dict().get('Value')
+        latest_price = get_live_price(self.symbol)
 
-        return update
+        return latest_price
 
     def get_data(self, period='3mo', interval='1d', date_range=None, trendline=None, average=None):
         '''
@@ -167,6 +148,12 @@ class Stock():
 
         # Enabling access to Date
         stock_data = stock_data.reset_index()
+
+        # Drop column close
+        stock_data = stock_data.drop(columns=['Close'])
+
+        # Rename column
+        stock_data = stock_data.rename(columns={'Adj Close': 'Close'})
 
         # Datetime
         stock_data['Time'] = [ts.strftime(ts_format) for i, ts in stock_data[date_column].iteritems()]

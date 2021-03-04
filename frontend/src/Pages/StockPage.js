@@ -184,7 +184,7 @@ const StockPage = props => {
   }
 
   // Check if it's an ETF
-  if (stockInfo.fullTimeEmployees && stockInfo.trailingPE) {
+  if (stockInfo.fullTimeEmployees && stockInfo.marketCap) {
     hideCard = false;
     gridCols = " md:grid-cols-2";
   }
@@ -207,7 +207,7 @@ const StockPage = props => {
             <span className={"text-3xl mb-3" + increasingTextStyle}>
               {
                 stockData.price ?
-                FixedDecimal(stockData.price[stockData.price.length - 1].Close) :
+                FixedDecimal(stockData.latestPrice) :
                 "-"
               }
             </span>
