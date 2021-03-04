@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment, useState, useEffect} from "react";
 import PropTypes from "prop-types";
 import {useHistory} from "react-router-dom";
 
@@ -15,31 +15,48 @@ const Sidebar = props => {
   let activeStyle = props.isActive ? " active" : "";
   let path = "";
   let toggler = props.sidebarToggler;
-  let regex;
 
   const [ticker, setTicker] = useState("");
   const [suggestions, setSuggestions] = useState([]);
   const history = useHistory();
 
-  // Input Uppercase
-  const inputSuggestion = e => {
-    regex = new RegExp(`^${ticker}`, 'i');
-    setSuggestions(tickerList.sort().filter(s => regex.test(s)));
+  // Input Suggestions
+  useEffect(() => {
+    setSuggestions([]);
 
     // Check if ticker empty for suggestion
-    if (ticker.length === 0) {
+    if (ticker.length > 0) {
+      let regex = new RegExp(`^${ticker}`, 'i');
+      let filteredOptions = tickerList.sort().filter(s => regex.test(s));
+
+      if (filteredOptions.length > 10) {
+        filteredOptions.length = 10;
+      }
+
+      setSuggestions(filteredOptions);
+    }
+    else {
       setSuggestions([]);
     }
+  }, [ticker]);
+
+  const changeHandler = e => {
+    setTicker(e.target.value.toLowerCase());
   };
 
   // Bold Text
   const boldText = value => {
     if (value && ticker) {
-      const textArray = value.split(ticker.toUpperCase());
+      let textArray = value.split(ticker.toUpperCase());
+      textArray = [textArray.shift(), textArray.join(ticker.toUpperCase())];
       return (
         <span>
-          <b>{ticker.toUpperCase()}</b>
-          {textArray[1]}
+          {
+            textArray.length > 1 ? <b>{ticker.toUpperCase()}</b> : null
+          }
+          {
+            textArray.length > 1 ? textArray[1] : null
+          }
         </span>
       );
     }
@@ -50,22 +67,18 @@ const Sidebar = props => {
   // Select Suggestion
   const selectSuggestion = value => {
     setTicker(value.toLowerCase());
-    setSuggestions([]);
     pushToTicker(value.toLowerCase());
   }
 
   // Redirect to Ticker
-  const changeHandler = e => {
-    setTicker(e.target.value.toLowerCase());
-  };
-
   const pushToTicker = ticker => {
+    setSuggestions([]);
     path = "/stock/" + ticker + "/";
     history.push(path);
     toggler();
-    setSuggestions([]);
   };
 
+  // Form Submit
   const submitHandler = e => {
     e.preventDefault();
     pushToTicker(ticker);
@@ -87,13 +100,12 @@ const Sidebar = props => {
             type="text"
             placeholder="TSLA"
             value={ticker.toUpperCase()}
-            onKeyUp={inputSuggestion}
             onChange={changeHandler}
             autoFocus={props.isActive}
           />
         </form>
         {
-          suggestions.length !== 0 && ticker.length > 1 ?
+          suggestions.length > 0 ?
           <div className="flex">
             <div className="absolute w-full px-6">
               <ul className="flex flex-col overflow-y-auto bg-gray-darker border border-secondary rounded max-h-36">

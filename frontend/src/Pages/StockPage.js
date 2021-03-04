@@ -238,7 +238,7 @@ const StockPage = props => {
             </span>
           </div>
           <div className="flex flex-col mb-6">
-            <StockChart data={stockData.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={stockData.isIncreasing} />
+            <StockChart data={stockData.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={stockData.isIncreasing} height={300} />
             <ChoiceChips className="flex flex-row overflow-x-auto justify-start md:justify-end py-6" callback={callbackActivePeriod} />
           </div>
           <div className={"grid grid-cols-1 gap-6 mb-6" + gridCols}>

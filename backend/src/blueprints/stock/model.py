@@ -180,7 +180,6 @@ class Stock():
             except ValueError:
                 return None
 
-
         if average:
             try:
                 mean_value = self.__calculate_average(stock_data, average)

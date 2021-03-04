@@ -29,7 +29,7 @@ const StockChart = props => {
   const straightLine = curveBundle.beta(0);
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={props.height}>
       <ComposedChart data={props.data}>
         <defs>
           <linearGradient id="areaGradientIncreasing" x1="0" y1="0" x2="0" y2="1">
@@ -81,6 +81,7 @@ const StockChart = props => {
 
 StockChart.propTypes = {
   data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+  height: PropTypes.number.isRequired,
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   trend: PropTypes.string,
