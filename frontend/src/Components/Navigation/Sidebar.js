@@ -29,8 +29,8 @@ const Sidebar = props => {
       let regex = new RegExp(`^${ticker}`, 'i');
       let filteredOptions = tickerList.sort().filter(s => regex.test(s));
 
-      if (filteredOptions.length > 10) {
-        filteredOptions.length = 10;
+      if (filteredOptions.length > 50) {
+        filteredOptions.length = 50;
       }
 
       setSuggestions(filteredOptions);
@@ -72,10 +72,11 @@ const Sidebar = props => {
 
   // Redirect to Ticker
   const pushToTicker = ticker => {
-    setSuggestions([]);
     path = "/stock/" + ticker + "/";
     history.push(path);
+    setTicker("");
     toggler();
+    setSuggestions([]);
   };
 
   // Form Submit

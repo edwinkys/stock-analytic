@@ -206,7 +206,7 @@ const StockPage = props => {
             </span>
             <span className={"text-3xl mb-3" + increasingTextStyle}>
               {
-                stockData.price ?
+                stockData.latestPrice ?
                 FixedDecimal(stockData.latestPrice) :
                 "-"
               }
