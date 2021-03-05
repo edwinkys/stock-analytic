@@ -72,11 +72,10 @@ const Sidebar = props => {
 
   // Redirect to Ticker
   const pushToTicker = ticker => {
+    setSuggestions([]);
     path = "/stock/" + ticker + "/";
     history.push(path);
-    setTicker("");
     toggler();
-    setSuggestions([]);
   };
 
   // Form Submit
@@ -106,7 +105,7 @@ const Sidebar = props => {
           />
         </form>
         {
-          suggestions.length > 0 ?
+          suggestions.length > 1 ?
           <div className="flex">
             <div className="absolute w-full px-6">
               <ul className="flex flex-col overflow-y-auto bg-gray-darker border border-secondary rounded max-h-36">
