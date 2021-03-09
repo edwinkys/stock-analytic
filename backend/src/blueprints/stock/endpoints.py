@@ -50,6 +50,9 @@ def data():
     if ticker and period:
         stock = Stock(ticker)
 
+        # Fetch stock latest price
+        latest_price = stock.get_latest_price()
+
         if period == '1d':
             interval = '15m'
         elif period == '5d':
@@ -73,7 +76,6 @@ def data():
 
         # Check percentage of increment
         initial_price = price_data[0].get('Close')
-        latest_price = stock.get_latest_price()
         increment = latest_price - initial_price
         increment_percentage = increment / initial_price
 

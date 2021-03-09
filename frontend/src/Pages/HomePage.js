@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
-import {useHistory} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 import Axios from "../Lib/Axios";
 
 // Import layout
@@ -127,41 +127,43 @@ const HomePage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {
               etfData.map((item, i) => (
-                <Card key={i} title={item.title} subtitle={item.subtitle}>
-                  <span className={"mb-3" + item.style}>
-                    {
-                      item.data.latestPrice ?
-                      FixedDecimal(item.data.latestPrice) :
-                      "-"
-                    }
-                  </span>
-                  <span className={"text-xs mb-6" + item.style}>
-                    (
-                    {
-                      item.data.isIncreasing ?
-                      "+" :
-                      null
-                    }
-                    {
-                      item.data.increment ?
-                      FixedDecimal(item.data.increment) :
-                      null
-                    }
-                    &emsp;
-                    {
-                      item.data.isIncreasing ?
-                      "+" :
-                      null
-                    }
-                    {
-                      item.data.incrementPercentage ?
-                      ToPercentage(item.data.incrementPercentage) :
-                      null
-                    }
-                    )
-                  </span>
-                  <StockChart data={item.data.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={item.data.isIncreasing} height={150} />
-                </Card>
+                <Link to={"/stock/" + item.title.toLowerCase() + "/"}>
+                  <Card key={i} title={item.title} subtitle={item.subtitle}>
+                    <span className={"mb-3" + item.style}>
+                      {
+                        item.data.latestPrice ?
+                        FixedDecimal(item.data.latestPrice) :
+                        "-"
+                      }
+                    </span>
+                    <span className={"text-xs mb-6" + item.style}>
+                      (
+                      {
+                        item.data.isIncreasing ?
+                        "+" :
+                        null
+                      }
+                      {
+                        item.data.increment ?
+                        FixedDecimal(item.data.increment) :
+                        null
+                      }
+                      &emsp;
+                      {
+                        item.data.isIncreasing ?
+                        "+" :
+                        null
+                      }
+                      {
+                        item.data.incrementPercentage ?
+                        ToPercentage(item.data.incrementPercentage) :
+                        null
+                      }
+                      )
+                    </span>
+                    <StockChart data={item.data.price} label="Time" value="Close" trend="Close Prediction" average="Close Mean" isIncreasing={item.data.isIncreasing} height={150} />
+                  </Card>
+                </Link>
               ))
             }
           </div>
