@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import axios from 'axios';
 import {useHistory} from "react-router-dom";
 import Axios from "../Lib/Axios";
 
@@ -28,66 +29,51 @@ const HomePage = () => {
   useEffect(() => {
     setDataLoaded(false);
 
-    // Gather SPY data
-    Axios.get("/data", {
-      params: {
-        ticker: 'spy',
-        period: activePeriod
-      }
-    })
-      .then((response) => {
-        setSpyData(response.data);
-      })
-      .catch((error) => {
-        history.push("/page-not-found");
-        console.log(error);
-      });
+    // Gather Data
+    axios.all([
+      // SPY Data
+      Axios.get("/data", {
+        params: {
+          ticker: 'spy',
+          period: activePeriod
+        }
+      }),
 
-    // Gather VOO data
-    Axios.get("/data", {
-      params: {
-        ticker: 'voo',
-        period: activePeriod
-      }
-    })
-      .then((response) => {
-        setVooData(response.data);
-      })
-      .catch((error) => {
-        history.push("/page-not-found");
-        console.log(error);
-      });
+      // VOO Data
+      Axios.get("/data", {
+        params: {
+          ticker: 'voo',
+          period: activePeriod
+        }
+      }),
 
-    // Gather IWN data
-    Axios.get("/data", {
-      params: {
-        ticker: 'iwn',
-        period: activePeriod
-      }
-    })
-      .then((response) => {
-        setIwnData(response.data);
-      })
-      .catch((error) => {
-        history.push("/page-not-found");
-        console.log(error);
-      });
+      // IWN Data
+      Axios.get("/data", {
+        params: {
+          ticker: 'iwn',
+          period: activePeriod
+        }
+      }),
 
-    // Gather QQQ data
-    Axios.get("/data", {
-      params: {
-        ticker: 'qqq',
-        period: activePeriod
-      }
-    })
-      .then((response) => {
-        setQqqData(response.data);
+      // Gather QQQ data
+      Axios.get("/data", {
+        params: {
+          ticker: 'qqq',
+          period: activePeriod
+        }
+      })
+    ])
+      .then(axios.spread((spy, voo, iwn, qqq) => {
+        setSpyData(spy.data);
+        setVooData(voo.data);
+        setIwnData(iwn.data);
+        setQqqData(qqq.data);
         setDataLoaded(true);
-      })
-      .catch((error) => {
+      }))
+      .catch(error => {
         history.push("/page-not-found");
         console.log(error);
-      });
+      })
   }, [history]);
 
   // Check if the ETF is increasing
@@ -99,21 +85,25 @@ const HomePage = () => {
   // ETF Data
   const etfData = [
     {
+      subtitle: "SPDR S&P 500",
       title: "SPY",
       data: spyData,
       style: increasingSpyStyle
     },
     {
+      subtitle: "Vanguard S&P 500 ETF",
       title: "VOO",
       data: vooData,
       style: increasingVooStyle
     },
     {
+      subtitle: "iShares Russell 2000 Value ETF",
       title: "IWN",
       data: iwnData,
       style: increasingIwnStyle
     },
     {
+      subtitle: "Invesco QQQ Trust, Series 1",
       title: "QQQ",
       data: qqqData,
       style: increasingQqqStyle
@@ -122,12 +112,22 @@ const HomePage = () => {
 
   return (
     <DefaultLayout isLoaded={isDataLoaded}>
+      <div className="section flex-col bg-gradient-to-r from-primary to-secondary mt-0">
+        <div className="container wrapper flex flex-col justify-center items-center text-center py-36">
+          <span className="text-5xl font-bold mb-6">
+            Find Your Next Best Stock
+          </span>
+          <span>
+            Check live stock market data with data analytics in the same graph
+          </span>
+        </div>
+      </div>
       <div className="container wrapper">
-        <div className="section-sm flex-col">
+        <div className="section-sm flex-col -mt-36">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
             {
               etfData.map((item, i) => (
-                <Card key={i} title={item.title}>
+                <Card key={i} title={item.title} subtitle={item.subtitle}>
                   <span className={"mb-3" + item.style}>
                     {
                       item.data.latestPrice ?

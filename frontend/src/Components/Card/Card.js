@@ -5,6 +5,13 @@ const Card = props => {
   let hideStyle = props.hideCard ? " hidden" : " flex"
   return (
     <div className={"flex-col p-6 bg-gray-darker rounded-lg" + hideStyle}>
+      {
+        props.subtitle ?
+        <span className="text-xs truncate mb-3 text-gray-lighter">
+          {props.subtitle}
+        </span> :
+        null
+      }
       <span className="font-bold mb-6">
         {props.title}
       </span>
@@ -16,6 +23,7 @@ const Card = props => {
 
 Card.propTypes = {
   title: PropTypes.string,
+  subtitle: PropTypes.string,
   children: PropTypes.node,
   hideCard: PropTypes.bool
 }
