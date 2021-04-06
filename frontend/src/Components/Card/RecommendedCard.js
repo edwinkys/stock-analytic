@@ -39,7 +39,7 @@ const RecommendedCard = props => {
         <CardGrid addClassName="grid-cols-1 md:grid-cols-5 lg:grid-cols-5 mt-6">
           {
             recList.map((item, index) => (
-              <Link to={"/stock/" + item + "/"}>
+              <Link to={"/stock/" + item.toLowerCase() + "/"}>
                 <Card key={index}>
                   <span>{item}</span>
                 </Card>
