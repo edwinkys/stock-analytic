@@ -12,10 +12,21 @@ const Card = props => {
         </span> :
         null
       }
-      <span className="font-bold mb-6 text-light">
-        {props.title}
-      </span>
-      <hr className="border-gray-lighter mb-6 w-1/2" />
+
+      {
+        props.title ?
+        <span className="font-bold mb-6 text-light">
+          {props.title}
+        </span> :
+        null
+      }
+
+      {
+        props.title ?
+        <hr className="border-gray-lighter mb-6 w-1/2" /> :
+        null
+      }
+
       {props.children}
     </div>
   );

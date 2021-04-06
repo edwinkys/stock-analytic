@@ -11,6 +11,7 @@ import ChoiceChips from "../Components/Chips/ChoiceChips";
 import Card from "../Components/Card/Card";
 import CardGrid from "../Components/Card/CardGrid";
 import CardGridData from "../Components/Card/CardGridData";
+import RecommendedCard from "../Components/Card/RecommendedCard";
 
 // Import util function
 import ShortenParagraph from "../Lib/ShortenParagraph";
@@ -273,6 +274,7 @@ const StockPage = props => {
               </div>
             </Card>
           </div>
+          <RecommendedCard ticker={ticker} />
         </div>
       </div>
     </DefaultLayout>
